@@ -1,0 +1,38 @@
+[
+  {
+    "id": "gallery-1783428433169-0",
+    "src": "/images/gallery/gallery-1.jpg",
+    "alt": "Arrow Beach Hotel room with sea view curtains",
+    "createdAt": "2026-07-07T12:47:13.169Z"
+  },
+  {
+    "id": "gallery-1783428433169-1",
+    "src": "/images/gallery/gallery-2.jpg",
+    "alt": "Arrow Beach Hotel chair and table near the balcony",
+    "createdAt": "2026-07-07T12:47:13.169Z"
+  },
+  {
+    "id": "gallery-1783428433169-2",
+    "src": "/images/gallery/gallery-3.jpg",
+    "alt": "Arrow Beach Hotel bedroom interior",
+    "createdAt": "2026-07-07T12:47:13.169Z"
+  },
+  {
+    "id": "gallery-1783428433169-3",
+    "src": "/images/gallery/gallery-4.jpg",
+    "alt": "Arrow Beach Hotel pool at sunset",
+    "createdAt": "2026-07-07T12:47:13.169Z"
+  },
+  {
+    "id": "gallery-1783428433169-4",
+    "src": "/images/gallery/gallery-5.jpg",
+    "alt": "Arrow Beach Hotel terrace with sea view",
+    "createdAt": "2026-07-07T12:47:13.169Z"
+  },
+  {
+    "id": "gallery-1783428433169-5",
+    "src": "/images/gallery/gallery-6.jpg",
+    "alt": "Arrow Beach Hotel open-air seating area",
+    "createdAt": "2026-07-07T12:47:13.169Z"
+  }
+]

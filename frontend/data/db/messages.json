@@ -1,0 +1,22 @@
+[
+  {
+    "id": "msg-1783428433169-1",
+    "name": "John Smith",
+    "email": "john.smith@example.com",
+    "phone": "+44 7911 123456",
+    "subject": "Room availability in August",
+    "message": "Hi, I am planning a trip to Galle in August and wondering if you have any rooms available for 5 nights from August 10th? We are a family of 4.",
+    "read": false,
+    "createdAt": "2026-07-07T12:47:13.169Z"
+  },
+  {
+    "id": "msg-1783428433169-2",
+    "name": "Kamal Fernando",
+    "email": "kamal.f@example.com",
+    "phone": "+94 71 234 5678",
+    "subject": "Airport transfer",
+    "message": "Do you offer airport transfer services from Bandaranaike International Airport? If so, what would be the cost?",
+    "read": false,
+    "createdAt": "2026-07-07T12:47:13.169Z"
+  }
+]

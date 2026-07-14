@@ -1,0 +1,16 @@
+[
+  {
+    "id": "main",
+    "name": "Arrow Beach Hotel",
+    "description": "A premium beachfront escape in Sri Lanka with ocean views, elegant rooms, curated hospitality, and a serene setting near Galle.",
+    "tagline": "Luxury beachfront stays in Sri Lanka",
+    "location": "Galle, Sri Lanka",
+    "phone": "+94 77 529 0351",
+    "phoneDisplay": "+94 77 529 0351",
+    "email": "arrowbeachresort@gmail.com",
+    "address": "Arrow Beach Hotel, Galle, Sri Lanka",
+    "whatsapp": "94775290351",
+    "mapQuery": "Arrow Beach Hotel, Galle, Sri Lanka",
+    "createdAt": "2026-07-07T12:47:13.168Z"
+  }
+]

@@ -1,0 +1,105 @@
+[
+  {
+    "id": "room-1783428433168-0",
+    "name": "Deluxe beach View Double Room",
+    "type": "Deluxe beach View Double Room",
+    "subtitle": "Inspired by the Deluxe Beach View Double Room",
+    "price": "Rs 10,500/night",
+    "breakfast": "Rs 12,500/night with breakfast",
+    "description": "A polished retreat with a balcony, ocean breeze, and elegant finishes for couples or solo escapes.",
+    "amenities": [
+      "Balcony",
+      "Ocean view",
+      "King bed",
+      "Ensuite bath"
+    ],
+    "fullAmenities": [
+      "Balcony",
+      "Ocean view",
+      "King bed",
+      "Ensuite bath",
+      "Air conditioning",
+      "Free WiFi",
+      "Mini fridge",
+      "Tea/Coffee maker",
+      "Safe"
+    ],
+    "image": "/images/WhatsApp Image 2026-07-05 at 18.01.58.jpeg",
+    "images": [
+      "/images/WhatsApp Image 2026-07-05 at 18.01.58.jpeg",
+      "/images/WhatsApp Image 2026-07-05 at 18.41.14.jpeg",
+      "/images/WhatsApp Image 2025-11-13 at 14.06.34.jpeg",
+      "/images/WhatsApp Image 2025-11-13 at 14.06.40.jpeg",
+      "/images/WhatsApp Image 2025-11-13 at 14.06.42.jpeg",
+      "/images/WhatsApp Image 2025-11-13 at 14.07.00.jpeg",
+      "/images/WhatsApp Image 2025-11-13 at 14.07.02.jpeg"
+    ],
+    "createdAt": "2026-07-07T12:47:13.168Z"
+  },
+  {
+    "id": "room-1783428433168-1",
+    "name": "Deluxe beach View Triple Room",
+    "type": "Deluxe beach View Triple Room",
+    "subtitle": "Inspired by the Deluxe Beach View Triple Room",
+    "price": "Rs 15,000/night",
+    "breakfast": "+Rs 1,000/person with breakfast",
+    "description": "Spacious and relaxed, with room for the whole family and thoughtful details for longer stays.",
+    "amenities": [
+      "Large layout",
+      "Twin beds",
+      "Extra seating",
+      "Ocean-facing"
+    ],
+    "fullAmenities": [
+      "Large layout",
+      "Twin beds",
+      "Extra seating",
+      "Ocean-facing",
+      "Air conditioning",
+      "Free WiFi",
+      "Mini fridge",
+      "Wardrobe",
+      "Private bathroom"
+    ],
+    "image": "/images/WhatsApp Image 2026-07-05 at 18.02.00.jpeg",
+    "images": [
+      "/images/WhatsApp Image 2026-07-05 at 18.02.00.jpeg",
+      "/images/WhatsApp Image 2025-11-13 at 14.07.00 (1).jpeg",
+      "/images/gallery/WhatsApp Image 2026-07-05 at 18.41.14 (2).jpeg",
+      "/images/gallery/WhatsApp Image 2026-07-05 at 18.41.14 (2).jpeg",
+      "/images/WhatsApp Image 2025-11-13 at 14.07.00.jpeg",
+      "/images/WhatsApp Image 2025-11-13 at 14.06.35.jpeg"
+    ],
+    "createdAt": "2026-07-07T12:47:13.168Z"
+  },
+  {
+    "id": "room-1783428433168-2",
+    "name": "Standard AC Room",
+    "type": "Standart AC Room",
+    "subtitle": "Inspired by the premium brochure collection",
+    "price": "Rs 8,500/night",
+    "breakfast": "Rs 10,500/night with breakfast",
+    "description": "A bright, airy stay with calming sea tones and a clear view of the shoreline horizon.",
+    "amenities": [
+      "Air conditioning",
+      "Work desk",
+      "Sunlit interiors"
+    ],
+    "fullAmenities": [
+      "Air conditioning",
+      "Work desk",
+      "Sunlit interiors",
+      "Free WiFi",
+      "Ensuite bath",
+      "Comfortable bedding",
+      "Wardrobe"
+    ],
+    "image": "/images/WhatsApp Image 2026-07-05 at 18.01.54.jpeg",
+    "images": [
+      "/images/WhatsApp Image 2026-07-05 at 18.01.54.jpeg",
+      "/images/WhatsApp Image 2026-07-05 at 18.41.14 (1).jpeg",
+      "/images/WhatsApp Image 2025-11-13 at 14.06.42.jpeg"
+    ],
+    "createdAt": "2026-07-07T12:47:13.168Z"
+  }
+]

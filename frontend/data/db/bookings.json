@@ -1,0 +1,43 @@
+[
+  {
+    "id": "booking-1783428433169-1",
+    "customerName": "Anjali Perera",
+    "email": "anjali@example.com",
+    "phone": "+94 77 123 4567",
+    "checkIn": "2026-07-10",
+    "checkOut": "2026-07-13",
+    "guests": 2,
+    "roomType": "Deluxe beach View Double Room",
+    "specialRequests": "Late check-in around 10pm",
+    "status": "Confirmed",
+    "createdAt": "2026-07-07T12:47:13.169Z",
+    "updatedAt": "2026-07-14T10:24:03.033Z"
+  },
+  {
+    "id": "booking-1783428433169-2",
+    "customerName": "Marcus de Silva",
+    "email": "marcus@example.com",
+    "phone": "+94 76 987 6543",
+    "checkIn": "2026-07-15",
+    "checkOut": "2026-07-18",
+    "guests": 3,
+    "roomType": "Deluxe beach View Triple Room",
+    "specialRequests": "Extra pillows please",
+    "status": "Confirmed",
+    "createdAt": "2026-07-07T12:47:13.169Z"
+  },
+  {
+    "id": "booking-1783428433169-3",
+    "customerName": "Sophie Laurent",
+    "email": "sophie.l@example.com",
+    "phone": "+33 6 12 34 56 78",
+    "checkIn": "2026-07-20",
+    "checkOut": "2026-07-22",
+    "guests": 1,
+    "roomType": "Standard AC Room",
+    "specialRequests": "",
+    "status": "Confirmed",
+    "createdAt": "2026-07-07T12:47:13.169Z",
+    "updatedAt": "2026-07-14T10:24:05.465Z"
+  }
+]
