@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Lock, User, Eye, EyeOff, ShieldAlert, CheckCircle2, ArrowRight, Hotel } from 'lucide-react';
 
-export default function AdminLoginPage() {
+function AdminLoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const from = searchParams.get('from') || '/admin';
@@ -35,7 +35,6 @@ export default function AdminLoginPage() {
         return;
       }
 
-      // Refresh router and navigate to admin dashboard
       router.push(from);
       router.refresh();
     } catch (err) {
@@ -45,127 +44,140 @@ export default function AdminLoginPage() {
   };
 
   return (
+    <div className="w-full max-w-md space-y-8 relative z-10">
+      {/* Header Branding */}
+      <div className="text-center">
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-500 text-white shadow-lg shadow-blue-500/25 mb-4">
+          <Hotel className="w-8 h-8" />
+        </div>
+        <h2 className="text-3xl font-extrabold text-white tracking-tight">
+          Arrow Beach Hotel
+        </h2>
+        <p className="mt-2 text-sm text-slate-400 font-medium">
+          Management Portal & Dashboard
+        </p>
+      </div>
+
+      {/* Login Card */}
+      <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800 p-8 rounded-2xl shadow-2xl space-y-6">
+        <div className="border-b border-slate-800 pb-4">
+          <h3 className="text-xl font-bold text-slate-100">Admin Sign In</h3>
+          <p className="text-xs text-slate-400 mt-1">
+            Authorized personnel only. Please verify your credentials.
+          </p>
+        </div>
+
+        {error && (
+          <div className="flex items-start gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
+            <ShieldAlert className="w-5 h-5 shrink-0 mt-0.5" />
+            <p className="leading-snug">{error}</p>
+          </div>
+        )}
+
+        <form onSubmit={handleLogin} className="space-y-5">
+          <div>
+            <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+              Username or Email
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+                <User size={18} />
+              </div>
+              <input
+                type="text"
+                required
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="admin"
+                className="w-full pl-10 pr-4 py-3 bg-slate-950/60 border border-slate-800 rounded-xl text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+              Password
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+                <Lock size={18} />
+              </div>
+              <input
+                type={showPassword ? 'text' : 'password'}
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                className="w-full pl-10 pr-11 py-3 bg-slate-950/60 border border-slate-800 rounded-xl text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-500 hover:text-slate-300 focus:outline-none"
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full py-3.5 px-4 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-semibold rounded-xl text-sm shadow-lg shadow-blue-600/30 hover:shadow-blue-500/40 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-900 transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {loading ? (
+              <>
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                Authenticating...
+              </>
+            ) : (
+              <>
+                Sign In to Dashboard <ArrowRight size={18} />
+              </>
+            )}
+          </button>
+        </form>
+
+        {/* Quick Demo Credentials Info */}
+        <div className="p-4 rounded-xl bg-slate-950/50 border border-slate-800/80 text-xs text-slate-400 space-y-1">
+          <div className="flex items-center gap-1.5 font-semibold text-slate-300">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            <span>Default Admin Access Credentials:</span>
+          </div>
+          <p className="text-slate-400 pl-5">
+            Username: <code className="text-blue-400 font-mono">admin</code> | Password: <code className="text-blue-400 font-mono">admin123</code>
+          </p>
+        </div>
+      </div>
+
+      {/* Footer link back to website */}
+      <div className="text-center">
+        <a
+          href="/"
+          className="text-xs font-semibold text-slate-400 hover:text-slate-200 transition"
+        >
+          ← Return to Public Website
+        </a>
+      </div>
+    </div>
+  );
+}
+
+export default function AdminLoginPage() {
+  return (
     <div className="min-h-screen bg-slate-950 flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 relative overflow-hidden font-sans">
       {/* Ambient background decoration */}
       <div className="absolute -top-40 -left-40 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-cyan-600/20 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="w-full max-w-md space-y-8 relative z-10">
-        {/* Header Branding */}
-        <div className="text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-500 text-white shadow-lg shadow-blue-500/25 mb-4">
-            <Hotel className="w-8 h-8" />
-          </div>
-          <h2 className="text-3xl font-extrabold text-white tracking-tight">
-            Arrow Beach Hotel
-          </h2>
-          <p className="mt-2 text-sm text-slate-400 font-medium">
-            Management Portal & Dashboard
-          </p>
+      <Suspense fallback={
+        <div className="text-slate-400 text-sm font-semibold flex items-center gap-2">
+          <div className="w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          Loading Admin Portal...
         </div>
-
-        {/* Login Card */}
-        <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800 p-8 rounded-2xl shadow-2xl space-y-6">
-          <div className="border-b border-slate-800 pb-4">
-            <h3 className="text-xl font-bold text-slate-100">Admin Sign In</h3>
-            <p className="text-xs text-slate-400 mt-1">
-              Authorized personnel only. Please verify your credentials.
-            </p>
-          </div>
-
-          {error && (
-            <div className="flex items-start gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
-              <ShieldAlert className="w-5 h-5 shrink-0 mt-0.5" />
-              <p className="leading-snug">{error}</p>
-            </div>
-          )}
-
-          <form onSubmit={handleLogin} className="space-y-5">
-            <div>
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                Username or Email
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
-                  <User size={18} />
-                </div>
-                <input
-                  type="text"
-                  required
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  placeholder="admin"
-                  className="w-full pl-10 pr-4 py-3 bg-slate-950/60 border border-slate-800 rounded-xl text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                Password
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
-                  <Lock size={18} />
-                </div>
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  className="w-full pl-10 pr-11 py-3 bg-slate-950/60 border border-slate-800 rounded-xl text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-500 hover:text-slate-300 focus:outline-none"
-                >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                </button>
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-3.5 px-4 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-semibold rounded-xl text-sm shadow-lg shadow-blue-600/30 hover:shadow-blue-500/40 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-900 transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {loading ? (
-                <>
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  Authenticating...
-                </>
-              ) : (
-                <>
-                  Sign In to Dashboard <ArrowRight size={18} />
-                </>
-              )}
-            </button>
-          </form>
-
-          {/* Quick Demo Credentials Info */}
-          <div className="p-4 rounded-xl bg-slate-950/50 border border-slate-800/80 text-xs text-slate-400 space-y-1">
-            <div className="flex items-center gap-1.5 font-semibold text-slate-300">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-              <span>Default Admin Access Credentials:</span>
-            </div>
-            <p className="text-slate-400 pl-5">
-              Username: <code className="text-blue-400 font-mono">admin</code> | Password: <code className="text-blue-400 font-mono">admin123</code>
-            </p>
-          </div>
-        </div>
-
-        {/* Footer link back to website */}
-        <div className="text-center">
-          <a
-            href="/"
-            className="text-xs font-semibold text-slate-400 hover:text-slate-200 transition"
-          >
-            ← Return to Public Website
-          </a>
-        </div>
-      </div>
+      }>
+        <AdminLoginForm />
+      </Suspense>
     </div>
   );
 }
