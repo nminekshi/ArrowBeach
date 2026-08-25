@@ -25,14 +25,16 @@ top = 0
 right = left + crop_size
 bottom = top + crop_size
 
+# Crop square around emblem for pristine favicon display
 cropped_emblem = logo_img.crop((left, top, right, bottom))
 cropped_emblem.save(os.path.join(public_images_dir, "logo-icon.png"))
 
-# 3. Export PNGs of various required sizes
+# 3. Export PNGs for all standard favicon sizes (including Google's 48x48 and 96x96 specifications)
 sizes = {
     "favicon-16x16.png": 16,
     "favicon-32x32.png": 32,
-    "favicon-48x48.png": 48,
+    "favicon-48x48.png": 48,   # Google Search Central recommended format
+    "favicon-96x96.png": 96,   # Google Search Central recommended format
     "apple-touch-icon.png": 180,
     "android-chrome-192x192.png": 192,
     "android-chrome-512x512.png": 512,
@@ -40,22 +42,29 @@ sizes = {
 }
 
 for name, size in sizes.items():
-    resized = logo_img.resize((size, size), Image.Resampling.LANCZOS)
+    resized = cropped_emblem.resize((size, size), Image.Resampling.LANCZOS)
+    # Save in public directory
     resized.save(os.path.join(public_dir, name))
-    if name in ["icon.png", "apple-touch-icon.png", "favicon-32x32.png", "favicon-48x48.png"]:
+    # Save in app directory for Next.js App Router static routing
+    if name in ["icon.png", "apple-touch-icon.png", "favicon-32x32.png", "favicon-48x48.png", "favicon-96x96.png"]:
         resized.save(os.path.join(app_dir, name))
 
-# Save ICO format for search engines & browser compatibility
-ico_48 = logo_img.resize((48, 48), Image.Resampling.LANCZOS)
+# 4. Generate multi-resolution ICO file (48x48 primary for Googlebot)
+ico_48 = cropped_emblem.resize((48, 48), Image.Resampling.LANCZOS)
 ico_48.save(
     os.path.join(public_dir, "favicon.ico"),
     format="ICO",
-    sizes=[(16, 16), (32, 32), (48, 48)]
+    sizes=[(16, 16), (32, 32), (48, 48), (64, 64)]
 )
 ico_48.save(
     os.path.join(app_dir, "favicon.ico"),
     format="ICO",
-    sizes=[(16, 16), (32, 32), (48, 48)]
+    sizes=[(16, 16), (32, 32), (48, 48), (64, 64)]
 )
 
-print("Logo processed and favicons created successfully!")
+# 5. Remove any old conflicting icon.svg files if present
+for path in [os.path.join(public_dir, "icon.svg"), os.path.join(app_dir, "icon.svg")]:
+    if os.path.exists(path):
+        os.remove(path)
+
+print("Logo favicons regenerated successfully with exact Google Search 48x48 and 96x96 specifications!")
