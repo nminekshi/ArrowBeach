@@ -4,8 +4,8 @@
     "name": "Deluxe beach View Double Room",
     "type": "Deluxe beach View Double Room",
     "subtitle": "Inspired by the Deluxe Beach View Double Room",
-    "price": "Rs 10,500/night",
-    "breakfast": "Rs 12,500/night with breakfast",
+    "price": "$35/night",
+    "breakfast": "$42/night with breakfast",
     "description": "A polished retreat with a balcony, ocean breeze, and elegant finishes for couples or solo escapes.",
     "amenities": [
       "Balcony",
@@ -24,7 +24,7 @@
       "Tea/Coffee maker",
       "Safe"
     ],
-    "image": "/images/WhatsApp Image 2026-07-05 at 18.01.58.jpeg",
+    "image": "/images/gallery/WhatsApp Image 2026-07-23 at 17.49.13 (2)-1784809496816.jpeg",
     "images": [
       "/images/WhatsApp Image 2026-07-05 at 18.01.58.jpeg",
       "/images/WhatsApp Image 2026-07-05 at 18.41.14.jpeg",
@@ -32,17 +32,22 @@
       "/images/WhatsApp Image 2025-11-13 at 14.06.40.jpeg",
       "/images/WhatsApp Image 2025-11-13 at 14.06.42.jpeg",
       "/images/WhatsApp Image 2025-11-13 at 14.07.00.jpeg",
-      "/images/WhatsApp Image 2025-11-13 at 14.07.02.jpeg"
+      "/images/WhatsApp Image 2025-11-13 at 14.07.02.jpeg",
+      "/images/gallery/WhatsApp Image 2026-07-23 at 17.49.13 (2)-1784809453677.jpeg",
+      "/images/gallery/WhatsApp Image 2026-07-23 at 17.49.13 (3)-1784809457498.jpeg",
+      "/images/gallery/WhatsApp Image 2026-07-23 at 17.49.13 (2)-1784809468031.jpeg",
+      "/images/gallery/WhatsApp Image 2026-07-23 at 17.49.14-1784809508077.jpeg"
     ],
-    "createdAt": "2026-07-07T12:47:13.168Z"
+    "createdAt": "2026-07-07T12:47:13.168Z",
+    "updatedAt": "2026-07-23T12:25:28.929Z"
   },
   {
     "id": "room-1783428433168-1",
     "name": "Deluxe beach View Triple Room",
     "type": "Deluxe beach View Triple Room",
     "subtitle": "Inspired by the Deluxe Beach View Triple Room",
-    "price": "Rs 15,000/night",
-    "breakfast": "+Rs 1,000/person with breakfast",
+    "price": "$50/night",
+    "breakfast": "+$3/person with breakfast",
     "description": "Spacious and relaxed, with room for the whole family and thoughtful details for longer stays.",
     "amenities": [
       "Large layout",
@@ -77,8 +82,8 @@
     "name": "Standard AC Room",
     "type": "Standart AC Room",
     "subtitle": "Inspired by the premium brochure collection",
-    "price": "Rs 8,500/night",
-    "breakfast": "Rs 10,500/night with breakfast",
+    "price": "$28/night",
+    "breakfast": "$35/night with breakfast",
     "description": "A bright, airy stay with calming sea tones and a clear view of the shoreline horizon.",
     "amenities": [
       "Air conditioning",
@@ -94,12 +99,18 @@
       "Comfortable bedding",
       "Wardrobe"
     ],
-    "image": "/images/WhatsApp Image 2026-07-05 at 18.01.54.jpeg",
+    "image": "/images/gallery/WhatsApp Image 2026-07-23 at 17.49.12-1784809409835.jpeg",
     "images": [
       "/images/WhatsApp Image 2026-07-05 at 18.01.54.jpeg",
       "/images/WhatsApp Image 2026-07-05 at 18.41.14 (1).jpeg",
-      "/images/WhatsApp Image 2025-11-13 at 14.06.42.jpeg"
+      "/images/WhatsApp Image 2025-11-13 at 14.06.42.jpeg",
+      "/images/gallery/WhatsApp Image 2026-07-23 at 17.49.11 (1)-1784809317446.jpeg",
+      "/images/gallery/WhatsApp Image 2026-07-23 at 17.49.11 (2)-1784809321892.jpeg",
+      "/images/gallery/WhatsApp Image 2026-07-23 at 17.49.11-1784809327099.jpeg",
+      "/images/gallery/WhatsApp Image 2026-07-23 at 17.49.12 (1)-1784809330878.jpeg",
+      "/images/gallery/WhatsApp Image 2026-07-23 at 17.49.12 (2)-1784809338535.jpeg"
     ],
-    "createdAt": "2026-07-07T12:47:13.168Z"
+    "createdAt": "2026-07-07T12:47:13.168Z",
+    "updatedAt": "2026-07-23T12:23:36.202Z"
   }
 ]

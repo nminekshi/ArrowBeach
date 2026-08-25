@@ -5,12 +5,24 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, BadgeCheck, ChevronLeft, ChevronRight, X } from 'lucide-react';
-import { featuredRooms, rateGuide } from '@/data/site';
+import { rateGuide } from '@/data/site';
 import { SectionHeading } from '@/components/section-heading';
 
 export function Rooms() {
   const [activeRoomIndex, setActiveRoomIndex] = useState<number | null>(null);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [featuredRooms, setFeaturedRooms] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch('/api/rooms')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && data.rooms) {
+          setFeaturedRooms(data.rooms);
+        }
+      })
+      .catch(console.error);
+  }, []);
 
   const activeRoom = activeRoomIndex === null ? null : featuredRooms[activeRoomIndex];
 
@@ -99,8 +111,8 @@ export function Rooms() {
                 </div>
                 <div className="mt-6 rounded-[1.4rem] bg-sand-50 p-5">
                   <p className="text-xs uppercase tracking-[0.24em] text-night/45">Rates</p>
-                  <p className="mt-2 font-display text-3xl text-night">{room.price}</p>
-                  <p className="mt-1 text-sm text-ocean-800">{room.breakfast}</p>
+                  <p className="mt-2 font-display text-4xl font-bold text-night">{room.price}</p>
+                  <p className="mt-1 text-sm font-semibold text-ocean-800">{room.breakfast}</p>
                 </div>
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                   <Link
@@ -122,36 +134,6 @@ export function Rooms() {
           ))}
         </div>
 
-        <div className="mt-16 rounded-[2rem] border border-sand-200 bg-white p-6 shadow-luxury sm:p-8">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-ocean-700/65">Brochure Rate Guide</p>
-              <h3 className="mt-2 font-display text-3xl text-night">Exact room rates from the attached price sheet.</h3>
-            </div>
-            <p className="text-sm leading-7 text-night/65">
-              These rates are included to preserve the original room information from your brochure while the site uses a more elevated presentation.
-            </p>
-          </div>
-
-          <div className="mt-8 grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
-            {rateGuide.map((room) => (
-              <div key={room.name} className="rounded-[1.5rem] border border-sand-200 bg-sand-50 p-5">
-                <p className="font-semibold text-night">{room.name}</p>
-                <p className="mt-2 text-sm text-night/60">{room.note}</p>
-                <div className="mt-5 grid grid-cols-2 gap-3 text-sm">
-                  <div className="rounded-2xl bg-white p-4">
-                    <p className="text-xs uppercase tracking-[0.24em] text-night/45">Normal</p>
-                    <p className="mt-2 font-display text-2xl text-night">{room.normalRate}</p>
-                  </div>
-                  <div className="rounded-2xl bg-white p-4">
-                    <p className="text-xs uppercase tracking-[0.24em] text-night/45">With Breakfast</p>
-                    <p className="mt-2 font-display text-2xl text-sand-700">{room.breakfastRate}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
 
       {activeRoom ? (

@@ -69,9 +69,9 @@ type StoredDashboardState = {
 const storageKey = 'arrow-beach-guest-dashboard-v1';
 
 const roomRates: Record<string, number> = {
-  'Deluxe Room': 10500,
-  'Family Room': 15000,
-  'Ocean View Room': 8500,
+  'Deluxe Room': 35,
+  'Family Room': 50,
+  'Ocean View Room': 28,
 };
 
 const fallbackReservations: Reservation[] = [
@@ -120,7 +120,7 @@ const defaultActivity: ActivityItem[] = [
 ];
 
 function formatCurrency(value: number) {
-  return `Rs ${value.toLocaleString('en-LK')}`;
+  return `$${value.toLocaleString('en-US')}`;
 }
 
 function formatDate(value: string) {
@@ -335,7 +335,7 @@ export function GuestDashboardShell() {
     return ordered.find((reservation) => reservation.status !== 'cancelled') ?? ordered[0];
   }, [reservations]);
 
-  const activeRate = activeReservation ? roomRates[activeReservation.roomType] ?? 9200 : 9200;
+  const activeRate = activeReservation ? roomRates[activeReservation.roomType] ?? 30 : 30;
   const activeNights = activeReservation ? nightsBetween(activeReservation.checkIn, activeReservation.checkOut) : 1;
   const estimatedStayTotal = activeRate * activeNights;
 

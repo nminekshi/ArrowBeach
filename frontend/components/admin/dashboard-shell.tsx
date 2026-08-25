@@ -129,7 +129,7 @@ const initialState: WorkspaceState = {
       id: 'room-1',
       name: 'Ocean View Suite',
       type: 'Suite',
-      price: 48000,
+      price: 160,
       capacity: 3,
       status: 'Available',
       amenities: ['Sea view', 'Balcony', 'Mini bar'],
@@ -139,7 +139,7 @@ const initialState: WorkspaceState = {
       id: 'room-2',
       name: 'Family Retreat',
       type: 'Family',
-      price: 35000,
+      price: 120,
       capacity: 4,
       status: 'Occupied',
       amenities: ['Two beds', 'Living space', 'Pool access'],
@@ -149,7 +149,7 @@ const initialState: WorkspaceState = {
       id: 'room-3',
       name: 'Garden Deluxe',
       type: 'Deluxe',
-      price: 26000,
+      price: 90,
       capacity: 2,
       status: 'Maintenance',
       amenities: ['Garden view', 'King bed', 'Work desk'],
@@ -164,7 +164,7 @@ const initialState: WorkspaceState = {
       checkIn: '27 Jun',
       checkOut: '29 Jun',
       status: 'Confirmed',
-      amount: 21000,
+      amount: 70,
     },
     {
       id: 'booking-2',
@@ -173,7 +173,7 @@ const initialState: WorkspaceState = {
       checkIn: '28 Jun',
       checkOut: '01 Jul',
       status: 'Pending',
-      amount: 45000,
+      amount: 150,
     },
     {
       id: 'booking-3',
@@ -182,7 +182,7 @@ const initialState: WorkspaceState = {
       checkIn: '30 Jun',
       checkOut: '02 Jul',
       status: 'Checked-in',
-      amount: 24000,
+      amount: 80,
     },
     {
       id: 'booking-4',
@@ -191,7 +191,7 @@ const initialState: WorkspaceState = {
       checkIn: '01 Jul',
       checkOut: '03 Jul',
       status: 'Cancelled',
-      amount: 30000,
+      amount: 100,
     },
   ],
   customers: [
@@ -226,13 +226,13 @@ const initialState: WorkspaceState = {
     phone: '+94 11 555 0199',
     email: 'arrowbeachresort@gmail.com',
     address: 'Bentota, Sri Lanka',
-    currency: 'LKR',
+    currency: 'USD',
     breakfast: '7:00 AM - 10:00 AM',
   },
 };
 
 function formatCurrency(value: number) {
-  return `Rs ${value.toLocaleString('en-LK')}`;
+  return `$${value.toLocaleString('en-US')}`;
 }
 
 function getTone(status: string): StatusTone {
@@ -313,7 +313,7 @@ export function DashboardShell() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [state, setState] = useState<WorkspaceState>(initialState);
-  const [roomDraft, setRoomDraft] = useState({ name: '', type: 'Suite', price: 18000, capacity: 2, amenities: 'Sea view, Balcony' });
+  const [roomDraft, setRoomDraft] = useState({ name: '', type: 'Suite', price: 60, capacity: 2, amenities: 'Sea view, Balcony' });
   const [offerDraft, setOfferDraft] = useState({ title: '', details: '', expiry: '' });
   const [galleryDraft, setGalleryDraft] = useState({ title: '', category: 'Rooms' });
   const [messageReply, setMessageReply] = useState<Record<string, string>>({});
@@ -483,7 +483,7 @@ export function DashboardShell() {
       ],
     }));
 
-    setRoomDraft({ name: '', type: 'Suite', price: 18000, capacity: 2, amenities: 'Sea view, Balcony' });
+    setRoomDraft({ name: '', type: 'Suite', price: 60, capacity: 2, amenities: 'Sea view, Balcony' });
   };
 
   const addOffer = () => {
@@ -838,7 +838,7 @@ export function DashboardShell() {
                           <input type="number" min="1" className="w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-sky-500" value={roomDraft.capacity} onChange={(event) => setRoomDraft((current) => ({ ...current, capacity: Number(event.target.value) }))} />
                         </Field>
                       </div>
-                      <Field label="Price (LKR)">
+                      <Field label="Price ($)">
                         <input type="number" min="0" className="w-full rounded-2xl border border-slate-200 px-4 py-3 outline-none focus:border-sky-500" value={roomDraft.price} onChange={(event) => setRoomDraft((current) => ({ ...current, price: Number(event.target.value) }))} />
                       </Field>
                       <Field label="Amenities">

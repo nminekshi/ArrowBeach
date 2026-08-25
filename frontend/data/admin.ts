@@ -45,15 +45,15 @@ export const overviewMetrics = [
   { label: 'Total Bookings', value: '1,284', icon: NotebookText, change: '+86 this month' },
   { label: "Today's Check-ins", value: '9', icon: CalendarCheck2, change: 'Due by 2 PM' },
   { label: "Today's Check-outs", value: '7', icon: Clock3, change: 'Scheduled until noon' },
-  { label: 'Monthly Revenue', value: 'Rs 4.8M', icon: Wallet, change: '+18.4% vs last month' },
+  { label: 'Monthly Revenue', value: '$16K', icon: Wallet, change: '+18.4% vs last month' },
   { label: 'Occupancy Rate', value: '82%', icon: Gauge, change: 'Healthy demand' },
 ];
 
 export const recentBookings = [
-  { guest: 'Nimali Perera', room: 'Ocean View Room', dates: '27 Jun - 29 Jun', status: 'Confirmed', amount: 'Rs 21,000' },
-  { guest: 'Arjun Patel', room: 'Family Room', dates: '28 Jun - 01 Jul', status: 'Pending', amount: 'Rs 45,000' },
-  { guest: 'Michelle Tan', room: 'Deluxe Room', dates: '30 Jun - 02 Jul', status: 'Checked-in', amount: 'Rs 24,000' },
-  { guest: 'Kevin Silva', room: 'Family Room', dates: '01 Jul - 03 Jul', status: 'Cancelled', amount: 'Rs 30,000' },
+  { guest: 'Nimali Perera', room: 'Ocean View Room', dates: '27 Jun - 29 Jun', status: 'Confirmed', amount: '$70' },
+  { guest: 'Arjun Patel', room: 'Family Room', dates: '28 Jun - 01 Jul', status: 'Pending', amount: '$150' },
+  { guest: 'Michelle Tan', room: 'Deluxe Room', dates: '30 Jun - 02 Jul', status: 'Checked-in', amount: '$80' },
+  { guest: 'Kevin Silva', room: 'Family Room', dates: '01 Jul - 03 Jul', status: 'Cancelled', amount: '$100' },
 ];
 
 export const recentCustomers = [
@@ -159,7 +159,7 @@ export const chartStats = [
 ];
 
 export const adminSummaryCards = [
-  { label: 'Revenue collected', value: 'Rs 4.8M', icon: PiggyBank },
+  { label: 'Revenue collected', value: '$16K', icon: PiggyBank },
   { label: 'Pending actions', value: '23', icon: Bell },
   { label: 'New reviews', value: '18', icon: Star },
   { label: 'Open support messages', value: '12', icon: MessageCircle },

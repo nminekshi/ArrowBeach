@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, ArrowRight, BadgeCheck, ChevronLeft, ChevronRight, X } from 'lucide-react';
-import { featuredRooms } from '@/data/site';
 
 function slugify(text: string) {
   return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
@@ -13,8 +12,22 @@ function slugify(text: string) {
 
 export default function RoomPage({ params }: { params: Promise<{ slug: string }> }) {
   const [activeImageIndex, setActiveImageIndex] = useState<number | null>(null);
+  const [room, setRoom] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   const resolvedParams = use(params);
-  const room = featuredRooms.find((r) => slugify(r.name) === resolvedParams.slug);
+
+  useEffect(() => {
+    fetch('/api/rooms')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && data.rooms) {
+          const found = data.rooms.find((r: any) => slugify(r.name) === resolvedParams.slug);
+          setRoom(found || null);
+        }
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, [resolvedParams.slug]);
 
   useEffect(() => {
     if (activeImageIndex === null || !room) return;
@@ -27,8 +40,12 @@ export default function RoomPage({ params }: { params: Promise<{ slug: string }>
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeImageIndex, room]);
+
+  if (loading) {
+    return <div className="min-h-screen bg-sand-50 flex items-center justify-center pt-32 pb-24"><div className="w-8 h-8 border-4 border-ocean-600 border-t-transparent rounded-full animate-spin"></div></div>;
+  }
 
   if (!room) {
     notFound();
@@ -49,13 +66,13 @@ export default function RoomPage({ params }: { params: Promise<{ slug: string }>
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to all rooms
         </Link>
-        
+
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-24">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-ocean-700/65">{room.subtitle}</p>
             <h1 className="mt-4 font-display text-4xl sm:text-5xl lg:text-6xl text-night">{room.name}</h1>
             <p className="mt-6 text-lg leading-8 text-night/70">{room.description}</p>
-            
+
             <div className="mt-10">
               <h3 className="text-xl font-semibold text-night mb-4">Amenities</h3>
               <div className="grid grid-cols-2 gap-3 text-night/75">
@@ -72,7 +89,7 @@ export default function RoomPage({ params }: { params: Promise<{ slug: string }>
               <p className="text-xs uppercase tracking-[0.24em] text-night/45">Starting from</p>
               <p className="mt-2 font-display text-4xl text-night">{room.price}</p>
               <p className="mt-2 text-ocean-800">{room.breakfast}</p>
-              
+
               <Link
                 href={`/booking?room=${encodeURIComponent(room.type)}`}
                 className="mt-8 inline-flex w-full items-center justify-center rounded-full bg-ocean-900 px-6 py-4 text-base font-semibold text-white transition hover:bg-ocean-800"
@@ -84,19 +101,19 @@ export default function RoomPage({ params }: { params: Promise<{ slug: string }>
           </div>
 
           <div className="space-y-6">
-            <button 
+            <button
               onClick={() => setActiveImageIndex(0)}
               className="relative block h-96 sm:h-[32rem] w-full overflow-hidden rounded-[2rem] shadow-luxury text-left"
               aria-label="View photo full screen"
             >
               <Image src={room.images[0]} alt={room.name} fill className="object-cover transition duration-700 hover:scale-105" priority />
             </button>
-            
+
             {room.images && room.images.length > 1 && (
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                 {room.images.slice(1, 7).map((img, idx) => (
-                  <button 
-                    key={idx} 
+                  <button
+                    key={idx}
                     onClick={() => setActiveImageIndex(idx + 1)}
                     className="relative block h-32 sm:h-40 w-full overflow-hidden rounded-2xl shadow-sm text-left"
                     aria-label={`View photo ${idx + 2} full screen`}
@@ -152,7 +169,7 @@ export default function RoomPage({ params }: { params: Promise<{ slug: string }>
                 </>
               )}
             </div>
-            
+
             <div className="absolute bottom-4 left-0 right-0 text-center text-white/70 text-sm">
               {activeImageIndex + 1} / {room.images.length}
             </div>

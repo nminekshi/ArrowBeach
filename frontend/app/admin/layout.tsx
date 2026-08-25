@@ -1,13 +1,73 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Home, CalendarDays, BedDouble, Image as ImageIcon, MessageSquare, Settings, LogOut, Menu, X } from 'lucide-react';
-import { useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { Home, CalendarDays, BedDouble, Image as ImageIcon, MessageSquare, Settings, LogOut, Menu, X, ExternalLink } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
+
+  const isLoginPage = pathname === '/admin/login';
+
+  useEffect(() => {
+    if (isLoginPage) {
+      setLoading(false);
+      return;
+    }
+
+    // Verify admin session on client side
+    fetch('/api/admin/session')
+      .then((res) => {
+        if (res.ok) {
+          setAuthenticated(true);
+        } else {
+          router.push('/admin/login');
+        }
+      })
+      .catch(() => {
+        router.push('/admin/login');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [pathname, isLoginPage, router]);
+
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/admin/logout', { method: 'POST' });
+    } catch {
+      // continue logout redirect
+    }
+    router.push('/admin/login');
+    router.refresh();
+  };
+
+  // If this is the login page, render children directly without dashboard chrome
+  if (isLoginPage) {
+    return <>{children}</>;
+  }
+
+  // Show loading spinner while checking authentication state
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-sm font-semibold text-slate-400">Verifying Admin Authorization...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // If not authenticated, return null as router will redirect
+  if (!authenticated) {
+    return null;
+  }
 
   const navItems = [
     { label: 'Dashboard', href: '/admin', icon: Home },
@@ -28,7 +88,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       {/* Desktop Sidebar */}
       <aside className="w-64 bg-white border-r border-slate-200 hidden md:flex flex-col shadow-sm">
         <div className="h-20 flex items-center gap-3 px-7 border-b border-slate-100">
-          <div className="w-10 h-10 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-base">AB</div>
+          <div className="w-10 h-10 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-base shadow-sm">AB</div>
           <div>
             <p className="font-semibold text-slate-900 text-base leading-tight">Arrow Beach</p>
             <p className="text-xs text-slate-500 font-medium">Admin Panel</p>
@@ -56,14 +116,21 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           })}
         </nav>
 
-        <div className="p-3 border-t border-slate-100">
+        <div className="p-3 border-t border-slate-100 space-y-1">
           <Link
             href="/"
-            className="flex items-center gap-3 px-4 py-3 text-base font-semibold text-red-600 rounded-lg hover:bg-red-50 transition"
+            className="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-slate-600 rounded-lg hover:bg-slate-100 transition"
           >
-            <LogOut size={20} />
-            Back to Website
+            <ExternalLink size={18} />
+            View Public Site
           </Link>
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-red-600 rounded-lg hover:bg-red-50 transition"
+          >
+            <LogOut size={18} />
+            Sign Out
+          </button>
         </div>
       </aside>
 
@@ -102,11 +169,25 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             );
           })}
         </nav>
-        <div className="p-3 border-t border-slate-100">
-          <Link href="/" className="flex items-center gap-3 px-4 py-3 text-base font-semibold text-red-600 rounded-lg hover:bg-red-50 transition">
-            <LogOut size={20} />
-            Back to Website
+        <div className="p-3 border-t border-slate-100 space-y-1">
+          <Link
+            href="/"
+            onClick={() => setMobileOpen(false)}
+            className="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-slate-600 rounded-lg hover:bg-slate-100 transition"
+          >
+            <ExternalLink size={18} />
+            View Public Site
           </Link>
+          <button
+            onClick={() => {
+              setMobileOpen(false);
+              handleLogout();
+            }}
+            className="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-red-600 rounded-lg hover:bg-red-50 transition"
+          >
+            <LogOut size={18} />
+            Sign Out
+          </button>
         </div>
       </aside>
 
@@ -123,6 +204,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </p>
           </div>
           <div className="flex items-center gap-3">
+            <button
+              onClick={handleLogout}
+              className="text-xs font-semibold text-slate-500 hover:text-slate-800 transition px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50"
+            >
+              Sign Out
+            </button>
             <div className="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-bold">A</div>
           </div>
         </header>
