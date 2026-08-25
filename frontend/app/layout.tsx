@@ -20,20 +20,20 @@ const body = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL('https://arrowbeachresort.com'),
   title: {
-    default: `Arrow Beach Hotel | Beachfront Hotel in Galle near Rathgama Beach`,
+    default: `Arrow Beach Hotel | Beachfront Hotel in Galle near Pitiwella Beach`,
     template: `%s | ${site.name}`,
   },
   description:
-    'Arrow Beach Hotel is a luxury beachfront hotel in Galle, Sri Lanka near Rathgama Beach. Experience ocean view double & triple rooms, private balcony suites, serene beach stays, and authentic Sri Lankan hospitality.',
+    'Arrow Beach Hotel is a luxury beachfront hotel in Galle, Sri Lanka near Pitiwella Beach. Experience ocean view double & triple rooms, private balcony suites, serene beach stays, and authentic Sri Lankan hospitality.',
   keywords: [
     'Arrow Beach Hotel',
     'beach hotel in Galle',
     'hotel in Galle',
-    'hotel near Rathgama Beach',
+    'hotel near Pitiwella Beach',
     'beachfront hotel in Galle',
     'Sri Lanka hotel',
     'Galle luxury resort',
-    'Rathgama Beach accommodation',
+    'Pitiwella Beach accommodation',
     'ocean view room Galle',
   ],
   icons: {
@@ -54,9 +54,9 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: `Arrow Beach Hotel | Beachfront Hotel in Galle near Rathgama Beach`,
+    title: `Arrow Beach Hotel | Beachfront Hotel in Galle near Pitiwella Beach`,
     description:
-      'Arrow Beach Hotel is a luxury beachfront hotel in Galle near Rathgama Beach, Sri Lanka. Features ocean view rooms, balcony suites, and serene beach access.',
+      'Arrow Beach Hotel is a luxury beachfront hotel in Galle near Pitiwella Beach, Sri Lanka. Features ocean view rooms, balcony suites, and serene beach access.',
     url: 'https://arrowbeachresort.com',
     siteName: site.name,
     images: [
@@ -73,9 +73,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `Arrow Beach Hotel | Beachfront Hotel in Galle near Rathgama Beach`,
+    title: `Arrow Beach Hotel | Beachfront Hotel in Galle near Pitiwella Beach`,
     description:
-      'Arrow Beach Hotel is a luxury beachfront hotel in Galle near Rathgama Beach, Sri Lanka. Features ocean view rooms, balcony suites, and serene beach access.',
+      'Arrow Beach Hotel is a luxury beachfront hotel in Galle near Pitiwella Beach, Sri Lanka. Features ocean view rooms, balcony suites, and serene beach access.',
     images: ['https://arrowbeachresort.com/og-image.jpg'],
   },
 };

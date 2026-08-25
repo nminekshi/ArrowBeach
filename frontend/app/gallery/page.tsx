@@ -5,13 +5,13 @@ import type { Metadata } from 'next';
 import { SectionHeading } from '@/components/section-heading';
 
 export const metadata: Metadata = {
-  title: 'Photo Gallery | Arrow Beach Hotel in Galle near Rathgama Beach',
+  title: 'Photo Gallery | Arrow Beach Hotel in Galle near Pitiwella Beach',
   description:
-    'Explore the photo gallery of Arrow Beach Hotel, a luxury beachfront hotel in Galle near Rathgama Beach, Sri Lanka. Browse pictures of rooms, ocean views, and facilities.',
+    'Explore the photo gallery of Arrow Beach Hotel, a luxury beachfront hotel in Galle near Pitiwella Beach, Sri Lanka. Browse pictures of rooms, ocean views, and facilities.',
   keywords: [
     'Arrow Beach Hotel gallery',
     'beach hotel in Galle photos',
-    'hotel near Rathgama Beach',
+    'hotel near Pitiwella Beach',
     'beachfront hotel in Galle pictures',
     'Sri Lanka beach resort gallery',
   ],
@@ -19,9 +19,9 @@ export const metadata: Metadata = {
     canonical: '/gallery',
   },
   openGraph: {
-    title: 'Photo Gallery | Arrow Beach Hotel in Galle near Rathgama Beach',
+    title: 'Photo Gallery | Arrow Beach Hotel in Galle near Pitiwella Beach',
     description:
-      'Browse high-resolution photos of Arrow Beach Hotel in Galle, Sri Lanka near Rathgama Beach.',
+      'Browse high-resolution photos of Arrow Beach Hotel in Galle, Sri Lanka near Pitiwella Beach.',
     url: '/gallery',
   },
 };
@@ -46,7 +46,7 @@ export default function GalleryPage() {
         <SectionHeading
           eyebrow="Full Gallery"
           title="Every corner of Arrow Beach Hotel in Galle."
-          description="Explore our complete photo gallery showcasing luxury rooms, ocean views, and serene beachfront facilities near Rathgama Beach."
+          description="Explore our complete photo gallery showcasing luxury rooms, ocean views, and serene beachfront facilities near Pitiwella Beach."
         />
 
         <div className="mt-14 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">

@@ -11,7 +11,7 @@ export function HotelJsonLd() {
       'https://arrowbeachresort.com/images/hero-suite.jpg',
       'https://arrowbeachresort.com/images/hero.jpg'
     ],
-    'description': 'Arrow Beach Hotel is a luxury beachfront hotel in Galle, Sri Lanka near Rathgama Beach. Features ocean view double & triple rooms, private balcony suites, serene beach access, and authentic Sri Lankan hospitality.',
+    'description': 'Arrow Beach Hotel is a luxury beachfront hotel in Galle, Sri Lanka near Pitiwella Beach. Features ocean view double & triple rooms, private balcony suites, serene beach access, and authentic Sri Lankan hospitality.',
     'telephone': '+94775290351',
     'email': 'arrowbeachresort@gmail.com',
     'priceRange': '$18 - $50',
@@ -19,7 +19,7 @@ export function HotelJsonLd() {
     'paymentAccepted': 'Cash, Credit Card',
     'address': {
       '@type': 'PostalAddress',
-      'streetAddress': 'Arrow Beach Hotel, Rathgama Beach',
+      'streetAddress': 'Arrow Beach Hotel, Pitiwella Beach',
       'addressLocality': 'Galle',
       'addressRegion': 'Southern Province',
       'postalCode': '80000',

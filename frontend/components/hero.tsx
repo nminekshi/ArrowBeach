@@ -16,7 +16,7 @@ export function Hero() {
     <section className="relative min-h-screen overflow-hidden bg-night text-white">
       <Image
         src="/images/hero-suite.jpg"
-        alt="Arrow Beach Hotel - Premier beachfront hotel in Galle near Rathgama Beach"
+        alt="Arrow Beach Hotel - Premier beachfront hotel in Galle near Pitiwella Beach"
         fill
         priority
         sizes="100vw"
@@ -38,19 +38,19 @@ export function Hero() {
             className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.32em] text-white/80 backdrop-blur-md"
           >
             <Star size={14} className="text-sand-200" />
-            Beachfront Hotel in Galle • Near Rathgama Beach
+            Beachfront Hotel in Galle • Near Pitiwella Beach
           </motion.p>
 
           <motion.h1
             variants={fadeUp}
             transition={{ duration: 0.8 }}
-            className="font-display text-5xl leading-[0.95] text-balance sm:text-6xl lg:text-8xl"
+            className="font-display text-4xl leading-[0.95] text-balance sm:text-5xl lg:text-6xl"
           >
             Arrow Beach Hotel – Luxury Beachfront Stay in Galle.
           </motion.h1>
 
           <motion.h2 variants={fadeUp} transition={{ duration: 0.75 }} className="mt-6 w-full text-lg leading-8 text-white/82 sm:text-xl">
-            Discover Arrow Beach Hotel, a premier beach hotel in Galle located near Rathgama Beach. Experience luxury ocean view rooms, balcony suites, and serene coastal hospitality along Sri Lanka’s southern shore.
+            Discover Arrow Beach Hotel, a premier beach hotel in Galle located near Pitiwella Beach. Experience luxury ocean view rooms, balcony suites, and serene coastal hospitality along Sri Lanka’s southern shore.
           </motion.h2>
 
           <motion.div variants={fadeUp} transition={{ duration: 0.75 }} className="mt-8 flex flex-col gap-4 sm:flex-row">

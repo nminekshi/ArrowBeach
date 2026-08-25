@@ -5,11 +5,11 @@ import { BookingForm } from '@/components/booking-form';
 export const metadata: Metadata = {
   title: 'Book Your Stay | Arrow Beach Hotel - Beachfront Hotel in Galle',
   description:
-    'Reserve your stay at Arrow Beach Hotel, a premier beachfront hotel in Galle near Rathgama Beach, Sri Lanka. Select check-in dates, guest count, and ocean view rooms.',
+    'Reserve your stay at Arrow Beach Hotel, a premier beachfront hotel in Galle near Pitiwella Beach, Sri Lanka. Select check-in dates, guest count, and ocean view rooms.',
   keywords: [
     'Arrow Beach Hotel booking',
     'beachfront hotel in Galle',
-    'hotel near Rathgama Beach',
+    'hotel near Pitiwella Beach',
     'book hotel in Galle',
     'Sri Lanka beach resort booking',
   ],
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Book Your Stay | Arrow Beach Hotel - Beachfront Hotel in Galle',
     description:
-      'Reserve your luxury room at Arrow Beach Hotel near Rathgama Beach, Galle. Ocean view balconies and serene beachfront stays.',
+      'Reserve your luxury room at Arrow Beach Hotel near Pitiwella Beach, Galle. Ocean view balconies and serene beachfront stays.',
     url: '/booking',
   },
 };

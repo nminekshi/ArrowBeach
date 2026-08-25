@@ -3,13 +3,13 @@ import { Bath, CarFront, ChefHat, Coffee, Home, Waves, Wifi, Wind } from 'lucide
 export const site = {
   name: 'Arrow Beach Hotel',
   description:
-    'Arrow Beach Hotel is a luxury beachfront hotel in Galle near Rathgama Beach, Sri Lanka. Experience ocean view rooms, balcony suites, serene beach access, and authentic Sri Lankan hospitality.',
-  tagline: 'Luxury Beachfront Hotel in Galle near Rathgama Beach',
-  location: 'Rathgama Beach, Galle, Sri Lanka',
+    'Arrow Beach Hotel is a luxury beachfront hotel in Galle near Pitiwella Beach, Sri Lanka. Experience ocean view rooms, balcony suites, serene beach access, and authentic Sri Lankan hospitality.',
+  tagline: 'Luxury Beachfront Hotel in Galle near Pitiwella Beach',
+  location: 'Pitiwella Beach, Galle, Sri Lanka',
   phone: '+94 77 529 0351',
   phoneDisplay: '+94 77 529 0351',
   email: 'arrowbeachresort@gmail.com',
-  address: 'Arrow Beach Hotel, Rathgama Beach, Galle, Sri Lanka',
+  address: 'Arrow Beach Hotel, Pitiwella Beach, Galle, Sri Lanka',
   whatsapp: '94775290351',
   mapQuery: 'Arrow Beach Hotel, Galle, Sri Lanka',
 };
@@ -25,13 +25,13 @@ export const navigation = [
 ];
 
 export const heroStats = [
-  { label: 'Rathgama Beach', value: '30 m' },
+  { label: 'Pitiwella Beach', value: '30 m' },
   { label: 'Galle Fort', value: '6 km' },
   { label: 'Ocean View Rooms', value: '3+' },
 ];
 
 export const highlights = [
-  'Direct access to Rathgama Beach with ocean sunrise views',
+  'Direct access to Pitiwella Beach with ocean sunrise views',
   'Refined Sri Lankan hospitality and personalized service',
   'Calm interiors designed for romantic couples and family stays in Galle',
 ];
@@ -140,7 +140,7 @@ export const facilities = [
 
 export const galleryImages = [
   {
-    alt: 'Arrow Beach Hotel ocean view balcony room in Galle near Rathgama Beach',
+    alt: 'Arrow Beach Hotel ocean view balcony room in Galle near Pitiwella Beach',
     src: '/images/gallery/gallery-1.jpg',
   },
   {
@@ -156,7 +156,7 @@ export const galleryImages = [
     src: '/images/gallery/gallery-4.jpg',
   },
   {
-    alt: 'Arrow Beach Hotel ocean terrace in Galle near Rathgama Beach',
+    alt: 'Arrow Beach Hotel ocean terrace in Galle near Pitiwella Beach',
     src: '/images/gallery/gallery-5.jpg',
   },
   {
@@ -185,7 +185,7 @@ export const testimonials = [
 
 export const attractions = [
   {
-    name: 'Rathgama Beach',
+    name: 'Pitiwella Beach',
     distance: '1 min walk (30 m)',
     description: 'Serene golden sands, ideal for quiet morning walks and ocean sunsets.',
   },
