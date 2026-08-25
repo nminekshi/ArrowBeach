@@ -57,14 +57,15 @@ export const metadata: Metadata = {
     title: `Arrow Beach Hotel | Beachfront Hotel in Galle near Rathgama Beach`,
     description:
       'Arrow Beach Hotel is a luxury beachfront hotel in Galle near Rathgama Beach, Sri Lanka. Features ocean view rooms, balcony suites, and serene beach access.',
-    url: '/',
+    url: 'https://arrowbeachresort.com',
     siteName: site.name,
     images: [
       {
-        url: '/images/logo.png',
+        url: 'https://arrowbeachresort.com/og-image.jpg',
         width: 1200,
-        height: 1200,
-        alt: 'Arrow Beach Hotel - Beachfront Hotel in Galle',
+        height: 630,
+        type: 'image/jpeg',
+        alt: 'Arrow Beach Hotel - Luxury Beachfront Resort in Galle',
       },
     ],
     locale: 'en_US',
@@ -75,7 +76,7 @@ export const metadata: Metadata = {
     title: `Arrow Beach Hotel | Beachfront Hotel in Galle near Rathgama Beach`,
     description:
       'Arrow Beach Hotel is a luxury beachfront hotel in Galle near Rathgama Beach, Sri Lanka. Features ocean view rooms, balcony suites, and serene beach access.',
-    images: ['/images/logo.png'],
+    images: ['https://arrowbeachresort.com/og-image.jpg'],
   },
 };
 
