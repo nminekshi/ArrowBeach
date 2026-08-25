@@ -3,13 +3,13 @@ import { Bath, CarFront, ChefHat, Coffee, Home, Waves, Wifi, Wind } from 'lucide
 export const site = {
   name: 'Arrow Beach Hotel',
   description:
-    'A premium beachfront escape in Sri Lanka with ocean views, elegant rooms, curated hospitality, and a serene setting near Galle.',
-  tagline: 'Luxury beachfront stays in Sri Lanka',
-  location: 'Galle, Sri Lanka',
+    'Arrow Beach Hotel is a luxury beachfront hotel in Galle near Rathgama Beach, Sri Lanka. Experience ocean view rooms, balcony suites, serene beach access, and authentic Sri Lankan hospitality.',
+  tagline: 'Luxury Beachfront Hotel in Galle near Rathgama Beach',
+  location: 'Rathgama Beach, Galle, Sri Lanka',
   phone: '+94 77 529 0351',
   phoneDisplay: '+94 77 529 0351',
   email: 'arrowbeachresort@gmail.com',
-  address: 'Arrow Beach Hotel, Galle, Sri Lanka',
+  address: 'Arrow Beach Hotel, Rathgama Beach, Galle, Sri Lanka',
   whatsapp: '94775290351',
   mapQuery: 'Arrow Beach Hotel, Galle, Sri Lanka',
 };
@@ -25,15 +25,15 @@ export const navigation = [
 ];
 
 export const heroStats = [
-  { label: 'Beachfront setting', value: '30 m' },
-  { label: 'Galle Town', value: '6 km' },
-  { label: 'Signature rooms', value: '3+' },
+  { label: 'Rathgama Beach', value: '30 m' },
+  { label: 'Galle Fort', value: '6 km' },
+  { label: 'Ocean View Rooms', value: '3+' },
 ];
 
 export const highlights = [
-  'Private beach access with sunrise views',
-  'Refined Sri Lankan hospitality and warm service',
-  'Calm interiors designed for romantic and family stays',
+  'Direct access to Rathgama Beach with ocean sunrise views',
+  'Refined Sri Lankan hospitality and personalized service',
+  'Calm interiors designed for romantic couples and family stays in Galle',
 ];
 
 export const featuredRooms = [
@@ -55,7 +55,6 @@ export const featuredRooms = [
       '/images/WhatsApp Image 2025-11-13 at 14.06.42.jpeg',
       '/images/WhatsApp Image 2025-11-13 at 14.07.00.jpeg',
       '/images/WhatsApp Image 2025-11-13 at 14.07.02.jpeg',
-      
     ],
   },
   {
@@ -75,11 +74,7 @@ export const featuredRooms = [
       '/images/gallery/WhatsApp Image 2026-07-05 at 18.41.14 (2).jpeg',
       '/images/WhatsApp Image 2025-11-13 at 14.07.00.jpeg',
       '/images/WhatsApp Image 2025-11-13 at 14.06.35.jpeg',
-
-
-
     ],
-   
   },
   {
     name: 'Standard AC Room',
@@ -95,9 +90,7 @@ export const featuredRooms = [
       '/images/WhatsApp Image 2026-07-05 at 18.01.54.jpeg',
       '/images/WhatsApp Image 2026-07-05 at 18.41.14 (1).jpeg',
       '/images/WhatsApp Image 2025-11-13 at 14.06.42.jpeg',
-      
     ],
-   
   },
 ];
 
@@ -147,27 +140,27 @@ export const facilities = [
 
 export const galleryImages = [
   {
-    alt: 'Arrow Beach Hotel room with sea view curtains',
+    alt: 'Arrow Beach Hotel ocean view balcony room in Galle near Rathgama Beach',
     src: '/images/gallery/gallery-1.jpg',
   },
   {
-    alt: 'Arrow Beach Hotel chair and table near the balcony',
+    alt: 'Arrow Beach Hotel balcony seating overlooking the sea in Galle',
     src: '/images/gallery/gallery-2.jpg',
   },
   {
-    alt: 'Arrow Beach Hotel bedroom interior',
+    alt: 'Arrow Beach Hotel luxury bedroom suite interior',
     src: '/images/gallery/gallery-3.jpg',
   },
   {
-    alt: 'Arrow Beach Hotel pool at sunset',
+    alt: 'Arrow Beach Hotel swimming pool view at sunset',
     src: '/images/gallery/gallery-4.jpg',
   },
   {
-    alt: 'Arrow Beach Hotel terrace with sea view',
+    alt: 'Arrow Beach Hotel ocean terrace in Galle near Rathgama Beach',
     src: '/images/gallery/gallery-5.jpg',
   },
   {
-    alt: 'Arrow Beach Hotel open-air seating area',
+    alt: 'Arrow Beach Hotel open-air dining area near the beach',
     src: '/images/gallery/gallery-6.jpg',
   },
 ];
@@ -192,24 +185,24 @@ export const testimonials = [
 
 export const attractions = [
   {
+    name: 'Rathgama Beach',
+    distance: '1 min walk (30 m)',
+    description: 'Serene golden sands, ideal for quiet morning walks and ocean sunsets.',
+  },
+  {
     name: 'Galle Fort',
-    distance: '12 min drive',
-    description: 'Historic coastal charm, boutique cafes, and sunset ramparts.',
+    distance: '12 min drive (6 km)',
+    description: 'UNESCO World Heritage fortress, boutique cafes, and sunset ramparts.',
   },
   {
     name: 'Unawatuna Beach',
     distance: '18 min drive',
-    description: 'Soft sand, calm water, and relaxed beach bars for the evening.',
-  },
-  {
-    name: 'Japanese Peace Pagoda',
-    distance: '22 min drive',
-    description: 'A peaceful viewpoint for panoramic Indian Ocean scenery.',
+    description: 'Soft sand, calm waters, and relaxed coastal dining.',
   },
   {
     name: 'Sea Turtle Hatchery',
-    distance: '25 min drive',
-    description: 'A family-friendly conservation stop along the southern coast.',
+    distance: '15 min drive',
+    description: 'Local sea turtle conservation center along the southern coast.',
   },
 ];
 

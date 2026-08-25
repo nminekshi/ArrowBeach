@@ -10,8 +10,8 @@ export function Facilities() {
       <div className="w-full px-6 lg:px-8">
         <SectionHeading
           eyebrow="Facilities"
-          title="Everything you need for a calm, effortless stay."
-          description="A thoughtful collection of resort essentials designed around comfort, ease, and the beachside experience."
+          title="Resort amenities at Arrow Beach Hotel in Galle."
+          description="A thoughtful collection of resort essentials at Arrow Beach Hotel near Rathgama Beach, designed around comfort, ease, and a luxury beachside stay."
         />
 
         <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

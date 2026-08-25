@@ -10,8 +10,8 @@ export function Attractions() {
       <div className="w-full px-6 lg:px-8">
         <SectionHeading
           eyebrow="Nearby Attractions"
-          title="See the southern coast without long transfers."
-          description="Arrow Beach Hotel places you within easy reach of Galle’s most loved beaches, heritage spots, and family-friendly excursions."
+          title="Explore Galle and Rathgama Beach from Arrow Beach Hotel."
+          description="Located right near Rathgama Beach, Arrow Beach Hotel offers easy access to historic Galle Fort, pristine Southern Sri Lanka beaches, peace pagodas, and coastal wildlife."
         />
 
         <div className="mt-14 grid gap-4 md:grid-cols-2 xl:grid-cols-4">

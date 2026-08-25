@@ -1,10 +1,22 @@
 import type { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://arrowbeachhotel.com';
+  const baseUrl = 'https://arrowbeachresort.com';
 
-  return [
-    { url: `${baseUrl}/`, lastModified: new Date() },
-    { url: `${baseUrl}/booking`, lastModified: new Date() },
+  const routes = [
+    '',
+    '/booking',
+    '/gallery',
+    '/rooms',
+    '/rooms/deluxe-beach-view-double-room',
+    '/rooms/deluxe-beach-view-triple-room',
+    '/rooms/standard-ac-room',
   ];
+
+  return routes.map((route) => ({
+    url: `${baseUrl}${route}`,
+    lastModified: new Date(),
+    changeFrequency: route === '' ? 'daily' : 'weekly',
+    priority: route === '' ? 1.0 : 0.8,
+  }));
 }

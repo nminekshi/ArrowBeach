@@ -1,9 +1,27 @@
 import { Suspense } from 'react';
+import type { Metadata } from 'next';
 import { BookingForm } from '@/components/booking-form';
 
-export const metadata = {
-  title: 'Booking',
-  description: 'Reserve your stay at Arrow Beach Hotel with check-in, check-out, guest count, room type, and reservation details.',
+export const metadata: Metadata = {
+  title: 'Book Your Stay | Arrow Beach Hotel - Beachfront Hotel in Galle',
+  description:
+    'Reserve your stay at Arrow Beach Hotel, a premier beachfront hotel in Galle near Rathgama Beach, Sri Lanka. Select check-in dates, guest count, and ocean view rooms.',
+  keywords: [
+    'Arrow Beach Hotel booking',
+    'beachfront hotel in Galle',
+    'hotel near Rathgama Beach',
+    'book hotel in Galle',
+    'Sri Lanka beach resort booking',
+  ],
+  alternates: {
+    canonical: '/booking',
+  },
+  openGraph: {
+    title: 'Book Your Stay | Arrow Beach Hotel - Beachfront Hotel in Galle',
+    description:
+      'Reserve your luxury room at Arrow Beach Hotel near Rathgama Beach, Galle. Ocean view balconies and serene beachfront stays.',
+    url: '/booking',
+  },
 };
 
 export default function BookingPage() {

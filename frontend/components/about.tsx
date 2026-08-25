@@ -19,8 +19,8 @@ export function About() {
           <motion.div initial="initial" whileInView="whileInView" viewport={{ once: true }} transition={{ staggerChildren: 0.12 }}>
             <SectionHeading
               eyebrow="About Us"
-              title="A calm, contemporary hideaway designed for elevated stays."
-              description="Arrow Beach Hotel blends coastal serenity with polished service, intimate spaces, and a design language inspired by the sea, sand, and the warmth of Sri Lanka’s south coast."
+              title="A serene beachfront hotel in Galle near Rathgama Beach."
+              description="Arrow Beach Hotel is a boutique luxury hotel in Galle situated directly along the shoreline near Rathgama Beach. We combine coastal serenity, warm Sri Lankan hospitality, and ocean-facing suites designed for couples, families, and quiet getaways."
             />
 
             <div className="mt-8 grid gap-4">
@@ -49,7 +49,7 @@ export function About() {
           >
             <Image
               src="/images/hero-bedroom.jpg"
-              alt="Stylish hotel suite interior"
+              alt="Arrow Beach Hotel luxury ocean view bedroom suite in Galle near Rathgama Beach"
               width={1200}
               height={1400}
               className="h-[540px] w-full object-cover"
@@ -57,7 +57,7 @@ export function About() {
             <div className="absolute inset-x-0 bottom-0 p-5">
               <div className="rounded-[1.5rem] border border-white/20 bg-night/60 p-5 text-white backdrop-blur-md">
                 <p className="text-xs uppercase tracking-[0.28em] text-white/65">Signature experience</p>
-                <p className="mt-2 font-display text-3xl">Beachfront comfort, quiet luxury.</p>
+                <p className="mt-2 font-display text-3xl">Beachfront comfort, quiet luxury in Galle.</p>
               </div>
             </div>
           </motion.div>
