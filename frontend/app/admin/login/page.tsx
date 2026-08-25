@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, Suspense } from 'react';
+import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Lock, User, Eye, EyeOff, ShieldAlert, CheckCircle2, ArrowRight, Hotel } from 'lucide-react';
+import { Lock, User, Eye, EyeOff, ShieldAlert, CheckCircle2, ArrowRight } from 'lucide-react';
 
 function AdminLoginForm() {
   const router = useRouter();
@@ -47,11 +48,17 @@ function AdminLoginForm() {
     <div className="w-full max-w-md space-y-8 relative z-10">
       {/* Header Branding */}
       <div className="text-center">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-500 text-white shadow-lg shadow-blue-500/25 mb-4">
-          <Hotel className="w-8 h-8" />
+        <div className="relative inline-flex items-center justify-center w-20 h-20 rounded-2xl overflow-hidden bg-white shadow-xl shadow-blue-900/30 mb-4 border border-slate-700/50 p-1">
+          <Image
+            src="/images/logo-icon.png"
+            alt="Arrow Beach Resort Logo"
+            fill
+            className="object-cover"
+            priority
+          />
         </div>
         <h2 className="text-3xl font-extrabold text-white tracking-tight">
-          Arrow Beach Hotel
+          Arrow Beach Resort
         </h2>
         <p className="mt-2 text-sm text-slate-400 font-medium">
           Management Portal & Dashboard

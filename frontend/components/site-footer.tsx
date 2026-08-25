@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowUpRight, Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
 import { site } from '@/data/site';
 
@@ -17,7 +18,16 @@ export function SiteFooter() {
 
       <div className="relative grid w-full gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.15fr_0.85fr_0.9fr] lg:px-8">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.34em] text-sand-200/75">Arrow Beach Hotel</p>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="relative h-12 w-12 overflow-hidden rounded-full border border-sand-200/40 bg-white p-0.5 shadow-glow">
+              <Image src="/images/logo-icon.png" alt="Arrow Beach Resort Logo" fill className="object-cover" />
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.34em] text-sand-200/90">Arrow Beach Resort</p>
+              <p className="text-[10px] text-white/50 tracking-wider">Galle • Sri Lanka</p>
+            </div>
+          </div>
+
           <p className="mt-4 max-w-xl font-display text-4xl leading-tight text-balance sm:text-5xl">
             Luxury by the sea, designed for calm arrivals and memorable stays.
           </p>

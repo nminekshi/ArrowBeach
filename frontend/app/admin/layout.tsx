@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { Home, CalendarDays, BedDouble, Image as ImageIcon, MessageSquare, Settings, LogOut, Menu, X, ExternalLink } from 'lucide-react';
 import { useState, useEffect } from 'react';
@@ -87,8 +88,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <div className="flex h-screen bg-slate-50">
       {/* Desktop Sidebar */}
       <aside className="w-64 bg-white border-r border-slate-200 hidden md:flex flex-col shadow-sm">
-        <div className="h-20 flex items-center gap-3 px-7 border-b border-slate-100">
-          <div className="w-10 h-10 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-base shadow-sm">AB</div>
+        <div className="h-20 flex items-center gap-3 px-6 border-b border-slate-100">
+          <div className="relative w-10 h-10 rounded-lg overflow-hidden border border-slate-200 bg-white shadow-sm shrink-0">
+            <Image src="/images/logo-icon.png" alt="Arrow Beach Logo" fill className="object-cover" />
+          </div>
           <div>
             <p className="font-semibold text-slate-900 text-base leading-tight">Arrow Beach</p>
             <p className="text-xs text-slate-500 font-medium">Admin Panel</p>
@@ -143,7 +146,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <aside className={`fixed inset-y-0 left-0 w-64 bg-white border-r border-slate-200 z-50 transform transition-transform md:hidden ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="h-16 flex items-center justify-between px-5 border-b border-slate-100">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-sm">AB</div>
+            <div className="relative w-9 h-9 rounded-lg overflow-hidden border border-slate-200 bg-white shrink-0">
+              <Image src="/images/logo-icon.png" alt="Arrow Beach Logo" fill className="object-cover" />
+            </div>
             <p className="font-semibold text-slate-900 text-base">Admin Panel</p>
           </div>
           <button onClick={() => setMobileOpen(false)} className="text-slate-500">
@@ -210,7 +215,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             >
               Sign Out
             </button>
-            <div className="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-bold">A</div>
+            <div className="relative w-9 h-9 rounded-full overflow-hidden border border-slate-200 bg-white">
+              <Image src="/images/logo-icon.png" alt="Admin Avatar" fill className="object-cover" />
+            </div>
           </div>
         </header>
 

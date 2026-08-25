@@ -25,6 +25,22 @@ export const metadata: Metadata = {
   description:
     'Arrow Beach Hotel is a premium beachfront hotel in Sri Lanka with luxury rooms, elegant facilities, a booking form, and a modern coastal design.',
   keywords: ['Arrow Beach Hotel', 'Sri Lanka hotel', 'beach hotel', 'luxury resort', 'Galle', 'ocean view room'],
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-48x48.png', type: 'image/png', sizes: '48x48' },
+      { url: '/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
+      { url: '/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
+      { url: '/android-chrome-192x192.png', type: 'image/png', sizes: '192x192' },
+      { url: '/android-chrome-512x512.png', type: 'image/png', sizes: '512x512' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
+  manifest: '/site.webmanifest',
   alternates: {
     canonical: '/',
   },
@@ -36,9 +52,9 @@ export const metadata: Metadata = {
     siteName: site.name,
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80',
-        width: 1600,
-        height: 900,
+        url: '/images/logo.png',
+        width: 1200,
+        height: 1200,
         alt: site.name,
       },
     ],
@@ -50,13 +66,19 @@ export const metadata: Metadata = {
     title: `${site.name} | Luxury Beach Hotel in Sri Lanka`,
     description:
       'A luxury beachfront stay in Galle with elegant rooms, a serene atmosphere, and smooth booking.',
-    images: ['https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80'],
+    images: ['/images/logo.png'],
   },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${display.variable} ${body.variable}`}>
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon-48x48.png" type="image/png" sizes="48x48" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+      </head>
       <body>
         <SiteHeaderChrome />
         {children}

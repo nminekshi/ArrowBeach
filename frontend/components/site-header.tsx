@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
@@ -30,7 +31,15 @@ export function SiteHeader() {
       <div className="w-full overflow-hidden rounded-[1.75rem] border border-white/20 bg-night/45 backdrop-blur-2xl shadow-luxury">
         <div className="flex w-full items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8">
           <Link href="/" className="group inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/8 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/12">
-            <span className="grid h-10 w-10 place-items-center rounded-full bg-sand-200 text-night shadow-glow transition group-hover:scale-105">A</span>
+            <div className="relative h-10 w-10 overflow-hidden rounded-full border border-sand-200/50 bg-white shadow-glow transition group-hover:scale-105">
+              <Image
+                src="/images/logo-icon.png"
+                alt="Arrow Beach Resort Logo"
+                fill
+                className="object-cover p-0.5"
+                priority
+              />
+            </div>
             <span className="hidden sm:block">
               <span className="block font-display text-lg leading-none">{site.name}</span>
               <span className="block text-[10px] uppercase tracking-[0.26em] text-white/55">Beachfront Luxury</span>
