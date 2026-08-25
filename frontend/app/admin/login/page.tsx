@@ -3,7 +3,7 @@
 import { useState, Suspense } from 'react';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Lock, User, Eye, EyeOff, ShieldAlert, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Lock, User, Eye, EyeOff, ShieldAlert, ArrowRight } from 'lucide-react';
 
 function AdminLoginForm() {
   const router = useRouter();
@@ -95,7 +95,7 @@ function AdminLoginForm() {
                 required
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="admin"
+                placeholder="Enter username or email"
                 className="w-full pl-10 pr-4 py-3 bg-slate-950/60 border border-slate-800 rounded-xl text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
               />
             </div>
@@ -144,17 +144,6 @@ function AdminLoginForm() {
             )}
           </button>
         </form>
-
-        {/* Quick Demo Credentials Info */}
-        <div className="p-4 rounded-xl bg-slate-950/50 border border-slate-800/80 text-xs text-slate-400 space-y-1">
-          <div className="flex items-center gap-1.5 font-semibold text-slate-300">
-            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-            <span>Default Admin Access Credentials:</span>
-          </div>
-          <p className="text-slate-400 pl-5">
-            Username: <code className="text-blue-400 font-mono">admin</code> | Password: <code className="text-blue-400 font-mono">admin123</code>
-          </p>
-        </div>
       </div>
 
       {/* Footer link back to website */}
