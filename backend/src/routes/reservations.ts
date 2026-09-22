@@ -19,16 +19,27 @@ export const reservationsRouter = Router();
 reservationsRouter.post('/', async (request, response, next) => {
   try {
     const payload = reservationSchema.parse(request.body);
-    const reservation = await Reservation.create(payload);
 
-    // Trigger email notification asynchronously
+    // Try to persist to DB, but fall back gracefully if DB is unreachable
+    let reservation: any = null;
+    let savedToDb = false;
+    try {
+      reservation = await Reservation.create(payload);
+      savedToDb = true;
+    } catch (dbErr) {
+      console.error('DB save failed for reservation, continuing without DB:', dbErr?.message || dbErr);
+      reservation = { ...payload, id: `fallback-${Date.now()}`, createdAt: new Date().toISOString() };
+    }
+
+    // Trigger email notification asynchronously (non-blocking)
     sendReservationNotification(payload).catch((err) => {
       console.error('Non-blocking backend email error:', err);
     });
 
     response.status(201).json({
-      message: 'Reservation request saved successfully',
+      message: 'Reservation request received',
       reservation,
+      savedToDb,
     });
   } catch (error) {
     next(error);
