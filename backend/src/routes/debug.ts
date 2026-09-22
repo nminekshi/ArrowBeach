@@ -25,9 +25,9 @@ debugRouter.get('/email-test', async (req, res) => {
       notes: 'Test reservation',
     };
 
-    // fire both notifications (non-blocking)
-    sendMessageNotification(messagePayload).catch((err) => console.error('[DEBUG] sendMessageNotification error:', err));
-    sendReservationNotification(reservationPayload).catch((err) => console.error('[DEBUG] sendReservationNotification error:', err));
+    // fire both notifications (non-blocking) — errors will be logged server-side without exposing secrets
+    sendMessageNotification(messagePayload).catch((err: any) => console.error('[DEBUG] sendMessageNotification error:', err?.message || err));
+    sendReservationNotification(reservationPayload).catch((err: any) => console.error('[DEBUG] sendReservationNotification error:', err?.message || err));
 
     res.json({ success: true, message: 'Triggered debug email notifications. Check backend logs and inbox.' });
   } catch (err) {

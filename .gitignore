@@ -20,6 +20,9 @@ frontend/.env.*
 backend/.env
 backend/.env.*
 !backend/.env.example
+.env.local
+frontend/.env.local
+backend/.env.local
 
 # Debug & logs
 *.log

@@ -20,26 +20,28 @@ reservationsRouter.post('/', async (request, response, next) => {
   try {
     const payload = reservationSchema.parse(request.body);
 
-    // Try to persist to DB, but fall back gracefully if DB is unreachable
+    // Persist to DB first. If DB save fails, return error to client.
     let reservation: any = null;
-    let savedToDb = false;
     try {
       reservation = await Reservation.create(payload);
-      savedToDb = true;
-    } catch (dbErr) {
-      console.error('DB save failed for reservation, continuing without DB:', dbErr?.message || dbErr);
-      reservation = { ...payload, id: `fallback-${Date.now()}`, createdAt: new Date().toISOString() };
+    } catch (dbErr: any) {
+      console.error('DB save failed for reservation:', dbErr?.message || dbErr);
+      return response.status(500).json({ message: 'Failed to save reservation. Please try again later.' });
     }
 
-    // Trigger email notification asynchronously (non-blocking)
-    sendReservationNotification(payload).catch((err) => {
-      console.error('Non-blocking backend email error:', err);
-    });
+    // After successful DB save, send notification email (async but errors reported server-side only)
+    sendReservationNotification(reservation)
+      .then(() => {
+        console.log('[BACKEND EMAIL] Reservation email sent for id=', reservation._id || reservation.id);
+      })
+      .catch((err) => {
+        // Log error without exposing SMTP_PASS
+        console.error('[BACKEND EMAIL] Reservation email failed:', err?.message || err);
+      });
 
     response.status(201).json({
-      message: 'Reservation request received',
+      message: 'Reservation created',
       reservation,
-      savedToDb,
     });
   } catch (error) {
     next(error);

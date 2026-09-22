@@ -17,23 +17,25 @@ messagesRouter.post('/', async (req, res, next) => {
   try {
     const payload = messageSchema.parse(req.body);
 
-    // Try to persist to DB, but fallback if DB is unreachable
+    // Persist message to DB first. If DB save fails, return error to client.
     let messageRecord: any = null;
-    let savedToDb = false;
     try {
       messageRecord = await Message.create(payload);
-      savedToDb = true;
-    } catch (dbErr) {
-      console.error('DB save failed for message, continuing without DB:', dbErr?.message || dbErr);
-      messageRecord = { ...payload, id: `fallback-${Date.now()}`, createdAt: new Date().toISOString() };
+    } catch (dbErr: any) {
+      console.error('DB save failed for message:', dbErr?.message || dbErr);
+      return res.status(500).json({ message: 'Failed to save message. Please try again later.' });
     }
 
-    // Send email notification asynchronously
-    sendMessageNotification(payload).catch((err) => {
-      console.error('Non-blocking backend message email error:', err);
-    });
+    // After DB save, notify via email (async)
+    sendMessageNotification(messageRecord)
+      .then(() => {
+        console.log('[BACKEND EMAIL] Message email sent for id=', messageRecord._id || messageRecord.id);
+      })
+      .catch((err) => {
+        console.error('[BACKEND EMAIL] Message email failed:', err?.message || err);
+      });
 
-    res.status(201).json({ message: 'Message received', messageRecord, savedToDb });
+    res.status(201).json({ message: 'Message saved', messageRecord });
   } catch (error) {
     next(error);
   }
