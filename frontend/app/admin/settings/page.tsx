@@ -249,8 +249,9 @@ export default function SettingsPage() {
 
         <div className="grid sm:grid-cols-2 gap-6">
           <div>
-            <label className="text-base font-semibold text-slate-700 block mb-2">Email</label>
+            <label className="text-base font-semibold text-slate-700 block mb-2">Hotel / Notification Email</label>
             <input name="email" type="email" value={settings.email} onChange={handleChange} className="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-base" />
+            <p className="text-xs text-slate-500 mt-1.5">New reservations and contact messages will be sent to this email address.</p>
           </div>
           <div>
             <label className="text-base font-semibold text-slate-700 block mb-2">WhatsApp (number only)</label>

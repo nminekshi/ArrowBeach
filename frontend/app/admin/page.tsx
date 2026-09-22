@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { BedDouble, Calendar, Users, Plus, ImageIcon, MessageSquare, ArrowRight } from 'lucide-react';
+import { BedDouble, Calendar, Users, Plus, ImageIcon, MessageSquare, ArrowRight, CheckCircle, DollarSign, Clock, TrendingUp } from 'lucide-react';
 
 export default function AdminDashboard() {
   const [rooms, setRooms] = useState<any[]>([]);
   const [bookings, setBookings] = useState<any[]>([]);
   const [messages, setMessages] = useState<any[]>([]);
+  const [gallery, setGallery] = useState<any[]>([]);
   const [seeded, setSeeded] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -24,18 +25,38 @@ export default function AdminDashboard() {
       fetch('/api/rooms').then(r => r.json()),
       fetch('/api/bookings').then(r => r.json()),
       fetch('/api/messages').then(r => r.json()),
-    ]).then(([roomsRes, bookingsRes, messagesRes]) => {
+      fetch('/api/gallery').then(r => r.json()),
+    ]).then(([roomsRes, bookingsRes, messagesRes, galleryRes]) => {
       setRooms(roomsRes.rooms || []);
       setBookings(bookingsRes.bookings || []);
       setMessages(messagesRes.messages || []);
+      setGallery(galleryRes.gallery || []);
       setLoading(false);
     }).catch(() => setLoading(false));
   }, [seeded]);
 
   const pendingBookings = bookings.filter(b => b.status === 'Pending');
+  const confirmedBookings = bookings.filter(b => b.status === 'Confirmed');
+  const cancelledBookings = bookings.filter(b => b.status === 'Cancelled');
   const todayStr = new Date().toISOString().split('T')[0];
   const todayCheckins = bookings.filter(b => b.checkIn === todayStr);
+  const todayCheckouts = bookings.filter(b => b.checkOut === todayStr);
   const unreadMessages = messages.filter(m => !m.read);
+
+  // Compute estimated revenue from confirmed bookings by extracting price from room data
+  const roomPriceMap: Record<string, number> = {};
+  rooms.forEach(r => {
+    const match = r.price?.match(/\$(\d+)/);
+    if (match) roomPriceMap[r.type || r.name] = parseInt(match[1]);
+  });
+
+  const estimatedRevenue = confirmedBookings.reduce((sum, b) => {
+    const pricePerNight = roomPriceMap[b.roomType] || 35;
+    const checkIn = new Date(b.checkIn);
+    const checkOut = new Date(b.checkOut);
+    const nights = Math.max(1, Math.ceil((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24)));
+    return sum + (pricePerNight * nights);
+  }, 0);
 
   if (loading) {
     return (
@@ -69,10 +90,11 @@ export default function AdminDashboard() {
         <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-base text-slate-500 font-medium">Pending Bookings</p>
-              <p className="text-4xl font-bold text-slate-900 mt-1.5">{pendingBookings.length}</p>
+              <p className="text-base text-slate-500 font-medium">Total Bookings</p>
+              <p className="text-4xl font-bold text-slate-900 mt-1.5">{bookings.length}</p>
+              <p className="text-sm text-slate-400 mt-1">{confirmedBookings.length} confirmed · {pendingBookings.length} pending</p>
             </div>
-            <div className="w-12 h-12 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600">
+            <div className="w-12 h-12 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600">
               <Calendar size={24} />
             </div>
           </div>
@@ -81,11 +103,12 @@ export default function AdminDashboard() {
         <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-base text-slate-500 font-medium">Today&apos;s Check-ins</p>
-              <p className="text-4xl font-bold text-slate-900 mt-1.5">{todayCheckins.length}</p>
+              <p className="text-base text-slate-500 font-medium">Estimated Revenue</p>
+              <p className="text-4xl font-bold text-slate-900 mt-1.5">${estimatedRevenue.toLocaleString()}</p>
+              <p className="text-sm text-slate-400 mt-1">From {confirmedBookings.length} confirmed bookings</p>
             </div>
             <div className="w-12 h-12 rounded-lg bg-green-50 flex items-center justify-center text-green-600">
-              <Users size={24} />
+              <DollarSign size={24} />
             </div>
           </div>
         </div>
@@ -95,10 +118,51 @@ export default function AdminDashboard() {
             <div>
               <p className="text-base text-slate-500 font-medium">Unread Messages</p>
               <p className="text-4xl font-bold text-slate-900 mt-1.5">{unreadMessages.length}</p>
+              <p className="text-sm text-slate-400 mt-1">{messages.length} total messages</p>
             </div>
             <div className="w-12 h-12 rounded-lg bg-purple-50 flex items-center justify-center text-purple-600">
               <MessageSquare size={24} />
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Secondary Stats Row */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600">
+            <Clock size={20} />
+          </div>
+          <div>
+            <p className="text-2xl font-bold text-slate-900">{pendingBookings.length}</p>
+            <p className="text-xs text-slate-500 font-medium">Pending</p>
+          </div>
+        </div>
+        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center text-green-600">
+            <CheckCircle size={20} />
+          </div>
+          <div>
+            <p className="text-2xl font-bold text-slate-900">{confirmedBookings.length}</p>
+            <p className="text-xs text-slate-500 font-medium">Confirmed</p>
+          </div>
+        </div>
+        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg bg-sky-50 flex items-center justify-center text-sky-600">
+            <Users size={20} />
+          </div>
+          <div>
+            <p className="text-2xl font-bold text-slate-900">{todayCheckins.length}</p>
+            <p className="text-xs text-slate-500 font-medium">Today&apos;s Check-ins</p>
+          </div>
+        </div>
+        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600">
+            <ImageIcon size={20} />
+          </div>
+          <div>
+            <p className="text-2xl font-bold text-slate-900">{gallery.length}</p>
+            <p className="text-xs text-slate-500 font-medium">Gallery Images</p>
           </div>
         </div>
       </div>
@@ -184,9 +248,46 @@ export default function AdminDashboard() {
                 <p className="text-sm text-slate-400 mt-0.5">{unreadMessages.length} unread message{unreadMessages.length !== 1 ? 's' : ''}</p>
               </div>
             </Link>
+            <Link href="/admin/bookings" className="flex items-center gap-4 p-5 bg-white rounded-xl border border-slate-200 hover:border-amber-300 hover:shadow-sm transition group">
+              <div className="w-11 h-11 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center group-hover:bg-amber-100 transition">
+                <TrendingUp size={22} />
+              </div>
+              <div>
+                <p className="font-semibold text-slate-900 text-base">Manage Bookings</p>
+                <p className="text-sm text-slate-400 mt-0.5">{pendingBookings.length} pending action{pendingBookings.length !== 1 ? 's' : ''}</p>
+              </div>
+            </Link>
           </div>
         </div>
       </div>
+
+      {/* Recent Messages */}
+      {unreadMessages.length > 0 && (
+        <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100">
+            <h2 className="text-lg font-bold text-slate-900">Unread Messages</h2>
+            <Link href="/admin/messages" className="text-base text-blue-600 hover:text-blue-700 font-semibold flex items-center gap-1">
+              View All <ArrowRight size={16} />
+            </Link>
+          </div>
+          <div className="divide-y divide-slate-100">
+            {unreadMessages.slice(0, 3).map((msg: any) => (
+              <div key={msg.id} className="px-6 py-4 flex items-start gap-3">
+                <div className="w-2.5 h-2.5 rounded-full bg-blue-500 mt-2 shrink-0" />
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2">
+                    <p className="text-base font-semibold text-slate-900">{msg.name}</p>
+                    <span className="text-xs text-slate-400">·</span>
+                    <p className="text-xs text-slate-400">{new Date(msg.createdAt).toLocaleDateString()}</p>
+                  </div>
+                  <p className="text-sm font-semibold text-slate-700 mt-0.5">{msg.subject || 'No subject'}</p>
+                  <p className="text-sm text-slate-400 mt-0.5 truncate">{msg.message}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -29,8 +29,6 @@ export function BookingForm() {
   const [submitState, setSubmitState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [feedback, setFeedback] = useState('');
 
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:4000';
-
   const whatsappMessage = useMemo(() => {
     const lines = [
       `Hello Arrow Beach Hotel, I'd like to reserve a ${form.roomType}.`,
@@ -55,29 +53,34 @@ export function BookingForm() {
     setFeedback('');
 
     try {
-      const response = await fetch(`${backendUrl}/api/reservations`, {
+      const response = await fetch('/api/bookings', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          ...form,
+          customerName: form.fullName,
+          fullName: form.fullName,
+          email: form.email,
+          phone: form.phone,
+          checkIn: form.checkIn,
+          checkOut: form.checkOut,
           guests: Number(form.guests),
+          roomType: form.roomType,
+          specialRequests: form.notes,
+          notes: form.notes,
         }),
       });
 
-      const result: unknown = await response.json();
+      const result = (await response.json()) as { success?: boolean; error?: string };
 
-      if (!response.ok) {
-        throw new Error(
-          typeof result === 'object' && result !== null && 'message' in result
-            ? String((result as { message?: string }).message)
-            : 'Failed to save reservation',
-        );
+      if (!response.ok || !result.success) {
+        throw new Error(result?.error || 'Failed to save reservation');
       }
 
       setSubmitState('success');
-      setFeedback('Reservation request saved successfully.');
+      setFeedback('Reservation request submitted successfully! We will contact you shortly to confirm.');
+      setForm(initialState);
     } catch (error) {
       setSubmitState('error');
       setFeedback(error instanceof Error ? error.message : 'Unable to submit reservation');

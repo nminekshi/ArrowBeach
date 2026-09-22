@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { z } from 'zod';
 import { Reservation } from '../models/Reservation';
+import { sendReservationNotification } from '../services/email';
 
 const reservationSchema = z.object({
   fullName: z.string().min(2),
@@ -19,6 +20,11 @@ reservationsRouter.post('/', async (request, response, next) => {
   try {
     const payload = reservationSchema.parse(request.body);
     const reservation = await Reservation.create(payload);
+
+    // Trigger email notification asynchronously
+    sendReservationNotification(payload).catch((err) => {
+      console.error('Non-blocking backend email error:', err);
+    });
 
     response.status(201).json({
       message: 'Reservation request saved successfully',
