@@ -23,12 +23,14 @@ function getTransporter() {
     return null;
   }
 
-  return nodemailer.createTransport({
+  const transporter = nodemailer.createTransport({
     host: host || 'smtp.gmail.com',
     port,
     secure: process.env.SMTP_SECURE ? process.env.SMTP_SECURE === 'true' : port === 465,
     auth: { user, pass },
   });
+
+  return transporter;
 }
 
 export async function sendReservationNotification(data: ReservationEmailData) {
@@ -41,17 +43,51 @@ export async function sendReservationNotification(data: ReservationEmailData) {
     return;
   }
 
+  // Log transporter info (non-sensitive)
   try {
-    await transporter.sendMail({
-      from: process.env.SMTP_FROM || `"Arrow Beach Hotel" <${process.env.SMTP_USER}>`,
-      to: NOTIFICATION_EMAIL,
-      replyTo: data.email,
-      subject,
-      text: `New Reservation Request:\nName: ${data.fullName}\nEmail: ${data.email}\nPhone: ${data.phone}\nRoom: ${data.roomType}\nDates: ${data.checkIn} to ${data.checkOut}\nGuests: ${data.guests}\nNotes: ${data.notes || 'None'}`,
-    });
-    console.log('[BACKEND EMAIL] Delivered reservation email to', NOTIFICATION_EMAIL);
-  } catch (err: any) {
-    console.error('[BACKEND EMAIL ERROR]', err?.message || err);
+    const info = {
+      host: process.env.SMTP_HOST || 'smtp.gmail.com',
+      port: process.env.SMTP_PORT || 465,
+      secure: process.env.SMTP_SECURE || (process.env.SMTP_PORT === '465' ? 'true' : 'false'),
+      user: process.env.SMTP_USER ? process.env.SMTP_USER.split('@')[0] + '@' + process.env.SMTP_USER.split('@')[1] : undefined,
+    };
+    console.log('[BACKEND EMAIL] Transporter config:', info);
+  } catch (e) {
+    console.log('[BACKEND EMAIL] Transporter config log failed');
+  }
+
+  // Verify transporter connectivity before sending
+  try {
+    await transporter.verify();
+    console.log('[BACKEND EMAIL] SMTP transporter verified');
+  } catch (verifyErr: any) {
+    console.error('[BACKEND EMAIL] transporter.verify() failed:', verifyErr?.message || verifyErr);
+    // Continue — we still attempt to send and rely on sendMail errors for details
+  }
+
+  const mailOptions = {
+    from: process.env.SMTP_FROM || `"Arrow Beach Hotel" <${process.env.SMTP_USER}>`,
+    to: NOTIFICATION_EMAIL,
+    replyTo: data.email,
+    subject,
+    text: `New Reservation Request:\nName: ${data.fullName}\nEmail: ${data.email}\nPhone: ${data.phone}\nRoom: ${data.roomType}\nDates: ${data.checkIn} to ${data.checkOut}\nGuests: ${data.guests}\nNotes: ${data.notes || 'None'}`,
+  };
+
+  // Try send with simple retry
+  const maxAttempts = 3;
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      const result = await transporter.sendMail(mailOptions);
+      console.log('[BACKEND EMAIL] Delivered reservation email to', NOTIFICATION_EMAIL, 'resultId=', result.messageId);
+      break;
+    } catch (err: any) {
+      console.error(`[BACKEND EMAIL] sendMail attempt ${attempt} failed:`, err?.message || err);
+      if (attempt === maxAttempts) {
+        console.error('[BACKEND EMAIL] All send attempts failed');
+      } else {
+        await new Promise((res) => setTimeout(res, 500 * attempt));
+      }
+    }
   }
 }
 
@@ -75,15 +111,33 @@ export async function sendMessageNotification(data: MessageEmailData) {
   }
 
   try {
-    await transporter.sendMail({
-      from: process.env.SMTP_FROM || `"Arrow Beach Hotel" <${process.env.SMTP_USER}>`,
-      to: NOTIFICATION_EMAIL,
-      replyTo: data.email,
-      subject,
-      text: `New Message from ${data.name} <${data.email}>\nPhone: ${data.phone || 'N/A'}\nSubject: ${data.subject}\n\n${data.message}`,
-    });
-    console.log('[BACKEND EMAIL] Delivered message email to', NOTIFICATION_EMAIL);
-  } catch (err: any) {
-    console.error('[BACKEND EMAIL ERROR]', err?.message || err);
+    await transporter.verify();
+    console.log('[BACKEND EMAIL] SMTP transporter verified for message');
+  } catch (verifyErr: any) {
+    console.error('[BACKEND EMAIL] transporter.verify() failed for message:', verifyErr?.message || verifyErr);
+  }
+
+  const mailOptions = {
+    from: process.env.SMTP_FROM || `"Arrow Beach Hotel" <${process.env.SMTP_USER}>`,
+    to: NOTIFICATION_EMAIL,
+    replyTo: data.email,
+    subject,
+    text: `New Message from ${data.name} <${data.email}>\nPhone: ${data.phone || 'N/A'}\nSubject: ${data.subject}\n\n${data.message}`,
+  };
+
+  const maxAttempts = 3;
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      const result = await transporter.sendMail(mailOptions);
+      console.log('[BACKEND EMAIL] Delivered message email to', NOTIFICATION_EMAIL, 'resultId=', result.messageId);
+      break;
+    } catch (err: any) {
+      console.error(`[BACKEND EMAIL] sendMail attempt ${attempt} failed for message:`, err?.message || err);
+      if (attempt === maxAttempts) {
+        console.error('[BACKEND EMAIL] All send attempts failed for message');
+      } else {
+        await new Promise((res) => setTimeout(res, 500 * attempt));
+      }
+    }
   }
 }
