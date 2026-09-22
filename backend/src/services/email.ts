@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import sgMail from '@sendgrid/mail';
 
 export interface ReservationEmailData {
   fullName: string;
@@ -31,6 +32,21 @@ function getTransporter() {
   });
 
   return transporter;
+}
+
+function sendViaSendGrid(mailOptions: { from: string; to: string; subject: string; text: string; replyTo?: string }) {
+  const apiKey = process.env.SENDGRID_API_KEY || '';
+  if (!apiKey) return null;
+  sgMail.setApiKey(apiKey);
+  return async () => {
+    await sgMail.send({
+      to: mailOptions.to,
+      from: mailOptions.from,
+      subject: mailOptions.subject,
+      text: mailOptions.text,
+      replyTo: mailOptions.replyTo,
+    });
+  };
 }
 
 export async function sendReservationNotification(data: ReservationEmailData) {
@@ -75,6 +91,23 @@ export async function sendReservationNotification(data: ReservationEmailData) {
 
   // Try send with simple retry
   const maxAttempts = 3;
+  // If SENDGRID_API_KEY is available, prefer SendGrid API
+  const sendgridSend = sendViaSendGrid({ from: mailOptions.from, to: mailOptions.to, subject: mailOptions.subject, text: mailOptions.text, replyTo: mailOptions.replyTo });
+  if (sendgridSend) {
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        await sendgridSend();
+        console.log('[BACKEND EMAIL] Delivered reservation email via SendGrid to', NOTIFICATION_EMAIL);
+        break;
+      } catch (err: any) {
+        console.error(`[BACKEND EMAIL] SendGrid send attempt ${attempt} failed:`, err?.message || err);
+        if (attempt === maxAttempts) console.error('[BACKEND EMAIL] All SendGrid attempts failed');
+        else await new Promise((res) => setTimeout(res, 500 * attempt));
+      }
+    }
+    return;
+  }
+
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
       const result = await transporter.sendMail(mailOptions);
