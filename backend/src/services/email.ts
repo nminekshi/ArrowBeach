@@ -54,3 +54,36 @@ export async function sendReservationNotification(data: ReservationEmailData) {
     console.error('[BACKEND EMAIL ERROR]', err?.message || err);
   }
 }
+
+export interface MessageEmailData {
+  name: string;
+  email: string;
+  phone?: string;
+  subject: string;
+  message: string;
+}
+
+export async function sendMessageNotification(data: MessageEmailData) {
+  const transporter = getTransporter();
+  const subject = `✉️ New Message: ${data.subject} — ${data.name}`;
+
+  if (!transporter) {
+    console.log('\n[BACKEND EMAIL] SMTP credentials pending. Message notification for:', NOTIFICATION_EMAIL);
+    console.log(`Message from: ${data.name} (${data.email}, ${data.phone || 'no phone'}) - Subject: ${data.subject}`);
+    console.log('Message:', data.message);
+    return;
+  }
+
+  try {
+    await transporter.sendMail({
+      from: process.env.SMTP_FROM || `"Arrow Beach Hotel" <${process.env.SMTP_USER}>`,
+      to: NOTIFICATION_EMAIL,
+      replyTo: data.email,
+      subject,
+      text: `New Message from ${data.name} <${data.email}>\nPhone: ${data.phone || 'N/A'}\nSubject: ${data.subject}\n\n${data.message}`,
+    });
+    console.log('[BACKEND EMAIL] Delivered message email to', NOTIFICATION_EMAIL);
+  } catch (err: any) {
+    console.error('[BACKEND EMAIL ERROR]', err?.message || err);
+  }
+}

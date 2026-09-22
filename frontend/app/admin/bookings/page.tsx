@@ -8,8 +8,13 @@ export default function BookingsPage() {
   const [loading, setLoading] = useState(true);
 
   const fetchBookings = () => {
-    fetch('/api/bookings').then(r => r.json()).then(data => {
-      setBookings(data.bookings || []);
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || '';
+    const endpoint = backendUrl ? `${backendUrl.replace(/\/$/, '')}/api/reservations` : '/api/bookings';
+
+    fetch(endpoint).then(r => r.json()).then(data => {
+      // normalize backend response shape
+      const items = data.reservations || data.bookings || data.bookings || [];
+      setBookings(items);
       setLoading(false);
     }).catch(() => setLoading(false));
   };
@@ -17,7 +22,9 @@ export default function BookingsPage() {
   useEffect(() => { fetchBookings(); }, []);
 
   const updateStatus = async (id: string, status: string) => {
-    await fetch(`/api/bookings/${id}`, {
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || '';
+    const endpoint = backendUrl ? `${backendUrl.replace(/\/$/, '')}/api/reservations/${id}` : `/api/bookings/${id}`;
+    await fetch(endpoint, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status }),
@@ -27,7 +34,9 @@ export default function BookingsPage() {
 
   const deleteBooking = async (id: string) => {
     if (!confirm('Are you sure you want to delete this booking?')) return;
-    await fetch(`/api/bookings/${id}`, { method: 'DELETE' });
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || '';
+    const endpoint = backendUrl ? `${backendUrl.replace(/\/$/, '')}/api/reservations/${id}` : `/api/bookings/${id}`;
+    await fetch(endpoint, { method: 'DELETE' });
     fetchBookings();
   };
 

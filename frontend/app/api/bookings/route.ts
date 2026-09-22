@@ -2,8 +2,16 @@ import { NextRequest, NextResponse } from 'next/server';
 import { readCollection, insertOne } from '@/lib/db';
 import { sendReservationNotification } from '@/lib/email';
 
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || '';
+
 export async function GET() {
   try {
+    if (BACKEND_URL) {
+      const res = await fetch(`${BACKEND_URL.replace(/\/$/, '')}/api/reservations`);
+      const data = await res.json();
+      return NextResponse.json({ success: true, bookings: data.reservations || data.bookings || [] });
+    }
+
     const bookings = readCollection('bookings');
     bookings.sort((a, b) => {
       const dateA = new Date((a as { createdAt?: string }).createdAt || 0).getTime();
@@ -20,6 +28,16 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
+
+    if (BACKEND_URL) {
+      const res = await fetch(`${BACKEND_URL.replace(/\/$/, '')}/api/reservations`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const result = await res.json();
+      return NextResponse.json({ success: res.ok, ...result }, { status: res.status });
+    }
 
     const booking = insertOne('bookings', {
       customerName: data.customerName || data.fullName,

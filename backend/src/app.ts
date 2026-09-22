@@ -1,6 +1,7 @@
 import cors from 'cors';
 import express, { type Request, type Response, type NextFunction } from 'express';
 import { reservationsRouter } from './routes/reservations';
+import { messagesRouter } from './routes/messages';
 
 export function createApp() {
   const app = express();
@@ -18,6 +19,7 @@ export function createApp() {
   });
 
   app.use('/api/reservations', reservationsRouter);
+  app.use('/api/messages', messagesRouter);
 
   app.use((error: unknown, _request: Request, response: Response, _next: NextFunction) => {
     if (error instanceof SyntaxError && 'body' in error) {

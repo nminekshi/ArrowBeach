@@ -53,7 +53,10 @@ export function BookingForm() {
     setFeedback('');
 
     try {
-      const response = await fetch('/api/bookings', {
+      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || '';
+      const endpoint = backendUrl ? `${backendUrl.replace(/\/$/, '')}/api/reservations` : '/api/bookings';
+
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -74,7 +77,9 @@ export function BookingForm() {
 
       const result = (await response.json()) as { success?: boolean; error?: string };
 
-      if (!response.ok || !result.success) {
+      if (response.ok) {
+        // Backend returns success message; normalize for frontend
+      } else {
         throw new Error(result?.error || 'Failed to save reservation');
       }
 
