@@ -29,8 +29,7 @@ export function Contact() {
     setErrorMsg('');
 
     try {
-      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || '';
-      const endpoint = backendUrl ? `${backendUrl.replace(/\/$/, '')}/api/messages` : '/api/messages';
+      const endpoint = '/api/messages';
 
       const res = await fetch(endpoint, {
         method: 'POST',

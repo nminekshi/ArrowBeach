@@ -53,8 +53,7 @@ export function BookingForm() {
     setFeedback('');
 
     try {
-      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || '';
-      const endpoint = backendUrl ? `${backendUrl.replace(/\/$/, '')}/api/reservations` : '/api/bookings';
+      const endpoint = '/api/bookings';
 
       const response = await fetch(endpoint, {
         method: 'POST',
